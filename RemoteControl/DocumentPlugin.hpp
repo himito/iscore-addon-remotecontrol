@@ -9,6 +9,10 @@ namespace Device
 class DeviceExplorerNode;
 using Node = TreeNode<DeviceExplorerNode>;
 }
+namespace Explorer
+{
+class DeviceDocumentPlugin;
+}
 namespace Scenario
 {
 class TimeNodeModel;
@@ -47,7 +51,7 @@ struct Receiver : public QObject
         QWebSocketServer m_server;
         QList<QWebSocket *> m_clients;
 
-        Device::Node& m_rootNode;
+        Explorer::DeviceDocumentPlugin& m_dev;
         std::list<Path<Scenario::TimeNodeModel>> m_activeTimeNodes;
 
         std::map<QString, std::function<void(const QJsonObject&)>> m_answers;

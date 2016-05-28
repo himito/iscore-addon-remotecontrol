@@ -13,8 +13,9 @@
 #include <QBuffer>
 #include <QJsonObject>
 #include <QJsonDocument>
+#include <iscore/serialization/VisitorCommon.hpp>
 #include <iscore/tools/ModelPathSerialization.hpp>
-
+#include <State/Message.hpp>
 namespace RemoteControl
 {
 DocumentPlugin::DocumentPlugin(
@@ -78,7 +79,7 @@ Receiver::Receiver(
         const iscore::DocumentContext& doc,
         quint16 port):
     m_server{"i-score-ctrl",  QWebSocketServer::NonSecureMode},
-    m_rootNode{doc.plugin<Explorer::DeviceDocumentPlugin>().rootNode()}
+    m_dev{doc.plugin<Explorer::DeviceDocumentPlugin>()}
 {
     if (m_server.listen(QHostAddress::Any, port))
     {
@@ -87,6 +88,29 @@ Receiver::Receiver(
         connect(&m_server, &QWebSocketServer::closed,
                 this, &Receiver::closed);
     }
+
+    m_answers.insert(std::make_pair("Trigger", [] (const QJsonObject& obj)
+    {
+        auto it = obj.find("Path");
+        if(it == obj.end())
+            return;
+
+        auto path = unmarshall<Path<Scenario::TimeNodeModel>>(it->toObject());
+        if(!path.valid())
+            return;
+        Scenario::TimeNodeModel& tn = path.find();
+        tn.trigger()->triggeredByGui();
+    }));
+
+    m_answers.insert(std::make_pair("Message", [this] (const QJsonObject& obj)
+    {
+        auto it = obj.find("Message");
+        if(it == obj.end())
+            return;
+
+        auto message = unmarshall<::State::Message>(it->toObject());
+        m_dev.updateProxy.updateRemoteValue(message.address, message.value);
+    }));
 }
 
 
@@ -151,7 +175,7 @@ void Receiver::onNewConnection()
 
     QJsonObject mess;
     mess["Message"] = "DeviceTree";
-    mess["Path"] = toJsonObject(m_rootNode);
+    mess["Path"] = toJsonObject(m_dev.rootNode());
     QJsonDocument doc{mess};
     client->sendTextMessage(doc.toJson());
     m_clients.push_back(client);
