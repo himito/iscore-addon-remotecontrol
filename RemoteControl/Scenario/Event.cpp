@@ -1,24 +1,38 @@
 #include "Event.hpp"
-
+#include <Scenario/Process/Algorithms/Accessors.hpp>
+#include <Scenario/Process/ScenarioInterface.hpp>
 namespace RemoteControl
 {
-EventComponent::EventComponent(
+Event::Event(
         const Id<iscore::Component>& id,
         Scenario::EventModel& event,
-        const EventComponent::system_t& doc,
+        Event::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent_comp):
-    Component{id, "EventComponent", parent_comp}
+    Component{id, "EventComponent", parent_comp},
+    m_parent{Scenario::parentTimeNode(event, *safe_cast<Scenario::ScenarioInterface*>(event.parent()))}
 {
+    connect(&event, &Scenario::EventModel::statusChanged,
+            this, [&] (Scenario::ExecutionStatus st) {
+        switch(st)
+        {
+            case Scenario::ExecutionStatus::Pending:
+                doc.receiver.registerTimeNode(m_parent);
+                break;
+            default:
+                doc.receiver.unregisterTimeNode(m_parent);
+                break;
+        }
+    });
 }
 
-const iscore::Component::Key&EventComponent::key() const
+const iscore::Component::Key&Event::key() const
 {
     static const Key k{"b8cc40b8-2ab4-4b2d-bddb-8bbf926f5060"};
     return k;
 }
 
-EventComponent::~EventComponent()
+Event::~Event()
 {
 }
 

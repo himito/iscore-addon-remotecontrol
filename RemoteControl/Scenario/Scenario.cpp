@@ -6,7 +6,7 @@ namespace RemoteControl
 ScenarioComponent::ScenarioComponent(
         const Id<iscore::Component>& id,
         Scenario::ScenarioModel& scenario,
-        const ScenarioComponent::system_t& doc,
+        ScenarioComponent::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent_obj):
     ProcessComponent{scenario, id, "ScenarioComponent", parent_obj},
@@ -15,62 +15,62 @@ ScenarioComponent::ScenarioComponent(
 }
 
 template<>
-ConstraintComponent* ScenarioComponent::make<ConstraintComponent, Scenario::ConstraintModel>(
+Constraint* ScenarioComponent::make<Constraint, Scenario::ConstraintModel>(
         const Id<iscore::Component>& id,
         Scenario::ConstraintModel& elt,
-        const ScenarioComponent::system_t& doc,
+        ScenarioComponent::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent)
 {
-    return new ConstraintComponent{id, elt, doc, ctx, parent};
+    return new Constraint{id, elt, doc, ctx, parent};
 }
 
 template<>
-EventComponent* ScenarioComponent::make<EventComponent, Scenario::EventModel>(
+Event* ScenarioComponent::make<Event, Scenario::EventModel>(
         const Id<iscore::Component>& id,
         Scenario::EventModel& elt,
-        const ScenarioComponent::system_t& doc,
+        ScenarioComponent::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent)
 {
-    return new EventComponent{id, elt, doc, ctx, parent};
+    return new Event{id, elt, doc, ctx, parent};
 }
 
 template<>
-TimeNodeComponent* ScenarioComponent::make<TimeNodeComponent, Scenario::TimeNodeModel>(
+TimeNode* ScenarioComponent::make<TimeNode, Scenario::TimeNodeModel>(
         const Id<iscore::Component>& id,
         Scenario::TimeNodeModel& elt,
-        const ScenarioComponent::system_t& doc,
+        ScenarioComponent::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent)
 {
-    return new TimeNodeComponent{id, elt, doc, ctx, parent};
+    return new TimeNode{id, elt, doc, ctx, parent};
 }
 
 template<>
-StateComponent* ScenarioComponent::make<StateComponent, Scenario::StateModel>(
+State* ScenarioComponent::make<State, Scenario::StateModel>(
         const Id<iscore::Component>& id,
         Scenario::StateModel& elt,
-        const ScenarioComponent::system_t& doc,
+        ScenarioComponent::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent)
 {
-    return new StateComponent{id, elt, doc, ctx, parent};
+    return new State{id, elt, doc, ctx, parent};
 }
 
-void ScenarioComponent::removing(const Scenario::ConstraintModel& elt, const ConstraintComponent& comp)
+void ScenarioComponent::removing(const Scenario::ConstraintModel& elt, const Constraint& comp)
 {
 }
 
-void ScenarioComponent::removing(const Scenario::EventModel& elt, const EventComponent& comp)
+void ScenarioComponent::removing(const Scenario::EventModel& elt, const Event& comp)
 {
 }
 
-void ScenarioComponent::removing(const Scenario::TimeNodeModel& elt, const TimeNodeComponent& comp)
+void ScenarioComponent::removing(const Scenario::TimeNodeModel& elt, const TimeNode& comp)
 {
 }
 
-void ScenarioComponent::removing(const Scenario::StateModel& elt, const StateComponent& comp)
+void ScenarioComponent::removing(const Scenario::StateModel& elt, const State& comp)
 {
 }
 

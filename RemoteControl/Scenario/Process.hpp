@@ -37,7 +37,7 @@ class ISCORE_ADDON_REMOTECONTROL_EXPORT ProcessComponentFactory :
         virtual ProcessComponent* make(
                 const Id<iscore::Component>&,
                 Process::ProcessModel& proc,
-                const DocumentPlugin& doc,
+                DocumentPlugin& doc,
                 const iscore::DocumentContext& ctx,
                 QObject* paren_objt) const = 0;
 };

@@ -4,24 +4,25 @@
 
 namespace RemoteControl
 {
-class EventComponent final :
+class Event final :
         public iscore::Component
 {
 
     public:
         using system_t = RemoteControl::DocumentPlugin;
 
-        EventComponent(
+        Event(
                 const Id<Component>& id,
                 Scenario::EventModel& event,
-                const system_t& doc,
+                system_t& doc,
                 const iscore::DocumentContext& ctx,
                 QObject* parent_comp);
 
         const Key& key() const override;
 
-        ~EventComponent();
+        ~Event();
 
     private:
+        Path<Scenario::TimeNodeModel> m_parent;
 };
 }

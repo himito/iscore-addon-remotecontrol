@@ -9,7 +9,7 @@ namespace Mix
 {
 class ProcessModel;
 }
-class ConstraintComponent final :
+class Constraint final :
         public iscore::Component
 {
     public:
@@ -19,7 +19,7 @@ class ConstraintComponent final :
         using process_component_factory_list_t = RemoteControl::ProcessComponentFactoryList;
 
         using parent_t = ::ConstraintComponentHierarchyManager<
-            ConstraintComponent,
+            Constraint,
             system_t,
             process_component_t,
             process_component_factory_list_t
@@ -27,19 +27,19 @@ class ConstraintComponent final :
 
         const Key& key() const override;
 
-        ConstraintComponent(
+        Constraint(
                 const Id<Component>& id,
                 Scenario::ConstraintModel& constraint,
-                const system_t& doc,
+                system_t& doc,
                 const iscore::DocumentContext& ctx,
                 QObject* parent_comp);
-        ~ConstraintComponent();
+        ~Constraint();
 
         ProcessComponent* make_processComponent(
                 const Id<Component> & id,
                 ProcessComponentFactory& factory,
                 Process::ProcessModel &process,
-                const DocumentPlugin &system,
+                DocumentPlugin &system,
                 const iscore::DocumentContext &ctx,
                 QObject *parent_component);
 

@@ -8,7 +8,7 @@
 #include <QMetaObject>
 namespace RemoteControl
 {
-class LoopComponent final :
+class Loop final :
         public ProcessComponent
 {
        COMPONENT_METADATA(RemoteControl::ScenarioComponent)
@@ -16,20 +16,20 @@ class LoopComponent final :
         using system_t = RemoteControl::DocumentPlugin;
         using hierarchy_t =
            BaseScenarioComponentHierarchyManager<
-               LoopComponent,
+               Loop,
                system_t,
-               Loop::ProcessModel,
-               ConstraintComponent,
-               EventComponent,
-               TimeNodeComponent,
-               StateComponent
+               ::Loop::ProcessModel,
+               Constraint,
+               Event,
+               TimeNode,
+               State
         >;
 
     public:
-       LoopComponent(
+       Loop(
                const Id<Component>& id,
-               Loop::ProcessModel& scenario,
-               const system_t& doc,
+               ::Loop::ProcessModel& scenario,
+               system_t& doc,
                const iscore::DocumentContext& ctx,
                QObject* parent_obj);
 
@@ -40,25 +40,25 @@ class LoopComponent final :
        Component_T* make(
                const Id<Component>& id,
                Element& elt,
-               const system_t& doc,
+               system_t& doc,
                const iscore::DocumentContext& ctx,
                QObject* parent);
 
         void removing(
                 const Scenario::ConstraintModel& elt,
-                const ConstraintComponent& comp);
+                const Constraint& comp);
 
         void removing(
                 const Scenario::EventModel& elt,
-                const EventComponent& comp);
+                const Event& comp);
 
         void removing(
                 const Scenario::TimeNodeModel& elt,
-                const TimeNodeComponent& comp);
+                const TimeNode& comp);
 
         void removing(
                 const Scenario::StateModel& elt,
-                const StateComponent& comp);
+                const State& comp);
 
     private:
         hierarchy_t m_hm;

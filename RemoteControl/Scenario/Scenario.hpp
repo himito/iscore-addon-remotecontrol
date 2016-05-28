@@ -18,17 +18,17 @@ class ScenarioComponent final :
                ScenarioComponent,
                system_t,
                Scenario::ScenarioModel,
-               ConstraintComponent,
-               EventComponent,
-               TimeNodeComponent,
-               StateComponent
+               Constraint,
+               Event,
+               TimeNode,
+               State
         >;
 
     public:
        ScenarioComponent(
                const Id<Component>& id,
                Scenario::ScenarioModel& scenario,
-               const system_t& doc,
+               system_t& doc,
                const iscore::DocumentContext& ctx,
                QObject* parent_obj);
 
@@ -41,25 +41,25 @@ class ScenarioComponent final :
        Component_T* make(
                const Id<Component>& id,
                Element& elt,
-               const system_t& doc,
+               system_t& doc,
                const iscore::DocumentContext& ctx,
                QObject* parent);
 
         void removing(
                 const Scenario::ConstraintModel& elt,
-                const ConstraintComponent& comp);
+                const Constraint& comp);
 
         void removing(
                 const Scenario::EventModel& elt,
-                const EventComponent& comp);
+                const Event& comp);
 
         void removing(
                 const Scenario::TimeNodeModel& elt,
-                const TimeNodeComponent& comp);
+                const TimeNode& comp);
 
         void removing(
                 const Scenario::StateModel& elt,
-                const StateComponent& comp);
+                const State& comp);
 
     private:
         hierarchy_t m_hm;

@@ -4,13 +4,13 @@
 
 namespace RemoteControl
 {
-class StateComponent final :
+class State final :
         public iscore::Component
 {
     public:
         using system_t = RemoteControl::DocumentPlugin;
 
-        StateComponent(
+        State(
                 const Id<iscore::Component>& id,
                 Scenario::StateModel& state,
                 const system_t& doc,
@@ -19,7 +19,7 @@ class StateComponent final :
 
         const Key& key() const override;
 
-        ~StateComponent();
+        ~State();
 
     private:
 

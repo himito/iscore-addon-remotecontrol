@@ -2,17 +2,17 @@
 namespace RemoteControl
 {
 
-const iscore::Component::Key&ConstraintComponent::key() const
+const iscore::Component::Key&Constraint::key() const
 {
     static const Key k{"b079041c-f11f-49b1-a88f-b2bc070affb1"};
     return k;
 }
 
 
-ConstraintComponent::ConstraintComponent(
+Constraint::Constraint(
         const Id<iscore::Component>& id,
         Scenario::ConstraintModel& constraint,
-        const ConstraintComponent::system_t& doc,
+        Constraint::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent_comp):
     Component{id, "ConstraintComponent", parent_comp},
@@ -20,15 +20,15 @@ ConstraintComponent::ConstraintComponent(
 {
 }
 
-ConstraintComponent::~ConstraintComponent()
+Constraint::~Constraint()
 {
 }
 
-ProcessComponent*ConstraintComponent::make_processComponent(
+ProcessComponent*Constraint::make_processComponent(
         const Id<iscore::Component>& id,
         ProcessComponentFactory& factory,
         Process::ProcessModel& process,
-        const DocumentPlugin& system,
+        DocumentPlugin& system,
         const iscore::DocumentContext& ctx,
         QObject* parent_component)
 {
@@ -36,7 +36,7 @@ ProcessComponent*ConstraintComponent::make_processComponent(
 }
 
 
-void ConstraintComponent::removing(
+void Constraint::removing(
         const Process::ProcessModel& cst,
         const ProcessComponent& comp)
 {

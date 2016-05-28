@@ -5,13 +5,13 @@
 
 namespace RemoteControl
 {
-class TimeNodeComponent final :
+class TimeNode final :
         public iscore::Component
 {
     public:
         using system_t = RemoteControl::DocumentPlugin;
 
-        TimeNodeComponent(
+        TimeNode(
                 const Id<iscore::Component>& id,
                 Scenario::TimeNodeModel& timeNode,
                 const system_t& doc,
@@ -20,7 +20,7 @@ class TimeNodeComponent final :
 
         const Key& key() const override;
 
-        ~TimeNodeComponent();
+        ~TimeNode();
 
     private:
 };

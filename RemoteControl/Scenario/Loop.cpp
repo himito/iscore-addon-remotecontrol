@@ -3,10 +3,10 @@
 namespace RemoteControl
 {
 
-LoopComponent::LoopComponent(
+Loop::Loop(
         const Id<iscore::Component>& id,
-        Loop::ProcessModel& scenario,
-        const LoopComponent::system_t& doc,
+        ::Loop::ProcessModel& scenario,
+        Loop::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent_obj):
     ProcessComponent{scenario, id, "LoopComponent", parent_obj},
@@ -15,62 +15,62 @@ LoopComponent::LoopComponent(
 }
 
 template<>
-ConstraintComponent* LoopComponent::make<ConstraintComponent, Scenario::ConstraintModel>(
+Constraint* Loop::make<Constraint, Scenario::ConstraintModel>(
         const Id<iscore::Component>& id,
         Scenario::ConstraintModel& elt,
-        const LoopComponent::system_t& doc,
+        Loop::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent)
 {
-    return new ConstraintComponent{id, elt, doc, ctx, parent};
+    return new Constraint{id, elt, doc, ctx, parent};
 }
 
 template<>
-EventComponent* LoopComponent::make<EventComponent, Scenario::EventModel>(
+Event* Loop::make<Event, Scenario::EventModel>(
         const Id<iscore::Component>& id,
         Scenario::EventModel& elt,
-        const LoopComponent::system_t& doc,
+        Loop::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent)
 {
-    return new EventComponent{id, elt, doc, ctx, parent};
+    return new Event{id, elt, doc, ctx, parent};
 }
 
 template<>
-TimeNodeComponent* LoopComponent::make<TimeNodeComponent, Scenario::TimeNodeModel>(
+TimeNode* Loop::make<TimeNode, Scenario::TimeNodeModel>(
         const Id<iscore::Component>& id,
         Scenario::TimeNodeModel& elt,
-        const LoopComponent::system_t& doc,
+        Loop::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent)
 {
-    return new TimeNodeComponent{id, elt, doc, ctx, parent};
+    return new TimeNode{id, elt, doc, ctx, parent};
 }
 
 template<>
-StateComponent* LoopComponent::make<StateComponent, Scenario::StateModel>(
+State* Loop::make<State, Scenario::StateModel>(
         const Id<iscore::Component>& id,
         Scenario::StateModel& elt,
-        const LoopComponent::system_t& doc,
+        Loop::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent)
 {
-    return new StateComponent{id, elt, doc, ctx, parent};
+    return new State{id, elt, doc, ctx, parent};
 }
 
-void LoopComponent::removing(const Scenario::ConstraintModel& elt, const ConstraintComponent& comp)
+void Loop::removing(const Scenario::ConstraintModel& elt, const Constraint& comp)
 {
 }
 
-void LoopComponent::removing(const Scenario::EventModel& elt, const EventComponent& comp)
+void Loop::removing(const Scenario::EventModel& elt, const Event& comp)
 {
 }
 
-void LoopComponent::removing(const Scenario::TimeNodeModel& elt, const TimeNodeComponent& comp)
+void Loop::removing(const Scenario::TimeNodeModel& elt, const TimeNode& comp)
 {
 }
 
-void LoopComponent::removing(const Scenario::StateModel& elt, const StateComponent& comp)
+void Loop::removing(const Scenario::StateModel& elt, const State& comp)
 {
 }
 

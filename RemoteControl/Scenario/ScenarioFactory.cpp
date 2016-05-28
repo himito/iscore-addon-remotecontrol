@@ -3,7 +3,7 @@
 
 namespace RemoteControl
 {
-bool ScenarioComponentFactory::matches(
+bool ScenarioFactory::matches(
         Process::ProcessModel& p,
         const DocumentPlugin&,
         const iscore::DocumentContext&) const
@@ -12,10 +12,10 @@ bool ScenarioComponentFactory::matches(
 }
 
 ProcessComponent*
-ScenarioComponentFactory::make(
+ScenarioFactory::make(
         const Id<iscore::Component>& id,
         Process::ProcessModel& proc,
-        const DocumentPlugin& doc,
+        DocumentPlugin& doc,
         const iscore::DocumentContext& ctx,
         QObject* paren_objt) const
 {
