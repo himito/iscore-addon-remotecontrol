@@ -46,7 +46,7 @@ set(SRCS
 
 add_library(${PROJECT_NAME} ${SRCS} ${HDRS} ${QRCS})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC iscore_plugin_scenario iscore_plugin_loop)
+target_link_libraries(${PROJECT_NAME} PUBLIC iscore_plugin_scenario iscore_plugin_loop Qt5::WebSockets)
 
 ### Setup of the target ###
 setup_iscore_plugin(${PROJECT_NAME})

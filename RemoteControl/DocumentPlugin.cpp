@@ -37,6 +37,7 @@ DocumentPlugin::DocumentPlugin(
         else
             cleanup();
     }, Qt::QueuedConnection);
+    qDebug() << "verutyhing is ok";
 }
 
 DocumentPlugin::~DocumentPlugin()
@@ -85,19 +86,22 @@ Receiver::Receiver(
     {
         connect(&m_server, &QWebSocketServer::newConnection,
                 this, &Receiver::onNewConnection);
-        connect(&m_server, &QWebSocketServer::closed,
-                this, &Receiver::closed);
     }
 
     m_answers.insert(std::make_pair("Trigger", [] (const QJsonObject& obj)
     {
+        qDebug() << "Trigger 1";
         auto it = obj.find("Path");
         if(it == obj.end())
             return;
 
+
+        qDebug() << "Trigger 2";
         auto path = unmarshall<Path<Scenario::TimeNodeModel>>(it->toObject());
         if(!path.valid())
             return;
+
+        qDebug() << "Trigger 3";
         Scenario::TimeNodeModel& tn = path.find();
         tn.trigger()->triggeredByGui();
     }));
@@ -129,7 +133,7 @@ void Receiver::registerTimeNode(Path<Scenario::TimeNodeModel> tn)
     m_activeTimeNodes.push_back(tn);
 
     QJsonObject mess;
-    mess["Message"] = "TimeNodeAdded";
+    mess["Message"] = "TriggerAdded";
     mess["Path"] = toJsonObject(tn);
     QJsonDocument doc{mess};
     auto json = doc.toJson();
@@ -149,7 +153,7 @@ void Receiver::unregisterTimeNode(Path<Scenario::TimeNodeModel> tn)
     m_activeTimeNodes.remove(tn);
 
     QJsonObject mess;
-    mess["Message"] = "TimeNodeRemoved";
+    mess["Message"] = "TriggerRemoved";
     mess["Path"] = toJsonObject(tn);
     QJsonDocument doc{mess};
     auto json = doc.toJson();
@@ -172,12 +176,26 @@ void Receiver::onNewConnection()
     connect(client, &QWebSocket::disconnected,
             this, &Receiver::socketDisconnected);
 
+    {
+        QJsonObject mess;
+        mess["Message"] = "DeviceTree";
+        mess["Path"] = toJsonObject(m_dev.rootNode());
+        QJsonDocument doc{mess};
+        client->sendTextMessage(doc.toJson());
+    }
 
-    QJsonObject mess;
-    mess["Message"] = "DeviceTree";
-    mess["Path"] = toJsonObject(m_dev.rootNode());
-    QJsonDocument doc{mess};
-    client->sendTextMessage(doc.toJson());
+    {
+        QJsonObject mess;
+        mess["Message"] = "TriggerAdded";
+        for(auto path : m_activeTimeNodes)
+        {
+            mess["Path"] = toJsonObject(path);
+            QJsonDocument doc{mess};
+            auto json = doc.toJson();
+            client->sendTextMessage(json);
+        }
+    }
+
     m_clients.push_back(client);
 }
 

@@ -34,10 +34,6 @@ struct Receiver : public QObject
 
         void unregisterTimeNode(Path<Scenario::TimeNodeModel> tn);
 
-    signals:
-        void closed();
-
-    public slots:
         void onNewConnection();
 
         void processTextMessage(const QString& message);

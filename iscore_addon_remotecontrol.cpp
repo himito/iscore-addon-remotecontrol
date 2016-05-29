@@ -1,5 +1,10 @@
 #include "iscore_addon_remotecontrol.hpp"
 #include <iscore/plugins/customfactory/FactorySetup.hpp>
+#include <RemoteControl/ApplicationPlugin.hpp>
+#include <RemoteControl/Settings/Factory.hpp>
+
+#include <RemoteControl/Scenario/ScenarioFactory.hpp>
+#include <RemoteControl/Scenario/LoopFactory.hpp>
 iscore_addon_remotecontrol::iscore_addon_remotecontrol() :
     QObject {}
 {
@@ -10,18 +15,44 @@ iscore_addon_remotecontrol::~iscore_addon_remotecontrol()
 
 }
 
+iscore::GUIApplicationContextPlugin*iscore_addon_remotecontrol::make_applicationPlugin(
+        const iscore::ApplicationContext& app)
+{
+    return new RemoteControl::ApplicationPlugin{app};
+}
+
+std::vector<std::unique_ptr<iscore::FactoryListInterface> > iscore_addon_remotecontrol::factoryFamilies()
+{
+    return make_ptr_vector<iscore::FactoryListInterface,
+            RemoteControl::ProcessComponentFactoryList
+            >();
+}
+
 std::vector<std::unique_ptr<iscore::FactoryInterfaceBase>> iscore_addon_remotecontrol::factories(
         const iscore::ApplicationContext& ctx,
         const iscore::AbstractFactoryKey& key) const
 {
     return instantiate_factories<
             iscore::ApplicationContext,
-    TL<>>(ctx, key);
+            TL<
+            FW<iscore::SettingsDelegateFactory,
+            RemoteControl::Settings::Factory>,
+            FW<RemoteControl::ProcessComponentFactory,
+                RemoteControl::ScenarioFactory,
+                RemoteControl::LoopComponentFactory>
+
+      >
+            >(ctx, key);
 }
 
 iscore::Version iscore_addon_remotecontrol::version() const
 {
     return iscore::Version{1};
+}
+
+QStringList iscore_addon_remotecontrol::required() const
+{
+    return {"Scenario", "DeviceExplorer"};
 }
 
 UuidKey<iscore::Plugin> iscore_addon_remotecontrol::key() const
