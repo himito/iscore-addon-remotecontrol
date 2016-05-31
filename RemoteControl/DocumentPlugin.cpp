@@ -14,7 +14,9 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <iscore/serialization/VisitorCommon.hpp>
+#include <Scenario/Application/ScenarioActions.hpp>
 #include <iscore/tools/ModelPathSerialization.hpp>
+#include <iscore/actions/Action.hpp>
 #include <State/Message.hpp>
 namespace RemoteControl
 {
@@ -37,7 +39,6 @@ DocumentPlugin::DocumentPlugin(
         else
             cleanup();
     }, Qt::QueuedConnection);
-    qDebug() << "verutyhing is ok";
 }
 
 DocumentPlugin::~DocumentPlugin()
@@ -114,6 +115,20 @@ Receiver::Receiver(
 
         auto message = unmarshall<::State::Message>(it->toObject());
         m_dev.updateProxy.updateRemoteValue(message.address, message.value);
+    }));
+
+
+    m_answers.insert(std::make_pair("Play", [&] (const QJsonObject&)
+    {
+        doc.app.actions.action<Actions::Play>().action()->trigger();
+    }));
+    m_answers.insert(std::make_pair("Pause", [&] (const QJsonObject&)
+    {
+        doc.app.actions.action<Actions::Play>().action()->trigger();
+    }));
+    m_answers.insert(std::make_pair("Stop", [&] (const QJsonObject&)
+    {
+        doc.app.actions.action<Actions::Stop>().action()->trigger();
     }));
 }
 
