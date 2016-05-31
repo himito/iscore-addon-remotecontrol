@@ -32,7 +32,7 @@ class iscore_addon_remotecontrol final :
 
     private:
         iscore::GUIApplicationContextPlugin* make_applicationPlugin(
-                const iscore::ApplicationContext& app) override;
+                const iscore::GUIApplicationContext& app) override;
 
 
         std::vector<std::unique_ptr<iscore::FactoryListInterface>> factoryFamilies() override;

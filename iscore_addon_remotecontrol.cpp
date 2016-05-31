@@ -16,7 +16,7 @@ iscore_addon_remotecontrol::~iscore_addon_remotecontrol()
 }
 
 iscore::GUIApplicationContextPlugin*iscore_addon_remotecontrol::make_applicationPlugin(
-        const iscore::ApplicationContext& app)
+        const iscore::GUIApplicationContext& app)
 {
     return new RemoteControl::ApplicationPlugin{app};
 }
