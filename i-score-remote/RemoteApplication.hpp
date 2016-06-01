@@ -27,12 +27,12 @@ class TriggerList : public QAbstractListModel
             endResetModel();
         }
 
-        int rowCount(const QModelIndex& parent) const override
+        int rowCount(const QModelIndex& ) const override
         {
             return timeNodes.size();
         }
 
-        QVariant data(const QModelIndex& index, int role) const override
+        QVariant data(const QModelIndex& index, int ) const override
         {
             if(index.row() >= timeNodes.size())
                 return {};
@@ -103,8 +103,10 @@ struct WebSocketHandler : public QObject
                     this, &WebSocketHandler::processBinaryMessage);
             connect(&m_server, &QWebSocket::connected,
                     this, [] { qDebug("yolooo"); });
+            connect(&m_server, static_cast<void(QWebSocket::*)(QAbstractSocket::SocketError)>(&QWebSocket::error),
+                    this , [=](QAbstractSocket::SocketError) { qDebug() << m_server.errorString(); });
 
-            m_server.open(QUrl("ws://localhost:10212"));
+            m_server.open(QUrl("ws://147.210.128.72:10212"));
         }
 
         ~WebSocketHandler()

@@ -10,6 +10,7 @@ Item {
     property alias play_button: playButton
     property alias stop_button: stopButton
     property alias pause_button: pauseButton
+    property alias reconnect_button: recoButton
 
     signal itemClicked(int index)
 
@@ -46,6 +47,7 @@ Item {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             Layout.fillWidth: true
             placeholderText: "ws://127.0.0.1:10212"
+            text: "ws://147.210.128.72:10212"
         }
 
         RowLayout {
@@ -71,6 +73,11 @@ Item {
             Button {
                 id: playButton
                 text: qsTr("Play")
+            }
+
+            Button {
+                id: recoButton
+                text: qsTr("Reconnect")
             }
         }
 

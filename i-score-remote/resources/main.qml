@@ -26,6 +26,7 @@ ApplicationWindow {
         pause_button.onClicked: rootWindow.pause()
         stop_button.onClicked: rootWindow.stop()
         address_field.onEditingFinished: addressChanged(address_field.text)
+        reconnect_button.onClicked: addressChanged(address_field.text)
     }
 
 
