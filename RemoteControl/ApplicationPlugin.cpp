@@ -21,5 +21,12 @@ void ApplicationPlugin::on_newDocument(
                 new DocumentPlugin{doc->context(), &doc->model()});
 
 }
+
+void ApplicationPlugin::on_loadedDocument(iscore::Document *doc)
+{
+    doc->model().addPluginModel(
+                new DocumentPlugin{doc->context(), &doc->model()});
+
+}
 }
 

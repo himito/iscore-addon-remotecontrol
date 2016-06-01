@@ -93,18 +93,14 @@ Receiver::Receiver(
 
     m_answers.insert(std::make_pair("Trigger", [] (const QJsonObject& obj)
     {
-        qDebug() << "Trigger 1";
         auto it = obj.find("Path");
         if(it == obj.end())
             return;
 
-
-        qDebug() << "Trigger 2";
         auto path = unmarshall<Path<Scenario::TimeNodeModel>>(it->toObject());
         if(!path.valid())
             return;
 
-        qDebug() << "Trigger 3";
         Scenario::TimeNodeModel& tn = path.find();
         tn.trigger()->triggeredByGui();
     }));
@@ -152,6 +148,7 @@ void Receiver::registerTimeNode(Path<Scenario::TimeNodeModel> tn)
     QJsonObject mess;
     mess["Message"] = "TriggerAdded";
     mess["Path"] = toJsonObject(tn);
+    mess["Name"] = tn.find().metadata.name();
     QJsonDocument doc{mess};
     auto json = doc.toJson();
 
@@ -207,6 +204,7 @@ void Receiver::onNewConnection()
         for(auto path : m_activeTimeNodes)
         {
             mess["Path"] = toJsonObject(path);
+            mess["Name"] = path.find().metadata.name();
             QJsonDocument doc{mess};
             auto json = doc.toJson();
             client->sendTextMessage(json);

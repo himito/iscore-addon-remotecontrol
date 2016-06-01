@@ -11,5 +11,6 @@ class ApplicationPlugin final :
 
     protected:
         void on_newDocument(iscore::Document* doc) override;
+        void on_loadedDocument(iscore::Document* doc) override;
 };
 }
