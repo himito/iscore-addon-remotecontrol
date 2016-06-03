@@ -34,6 +34,7 @@ const iscore::Component::Key&Event::key() const
 
 Event::~Event()
 {
+
 }
 
 }
