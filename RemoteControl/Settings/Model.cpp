@@ -8,7 +8,7 @@ namespace Settings
 
 const QString Keys::enabled = QStringLiteral("RemoteControl/Enabled");
 
-Model::Model()
+Model::Model(const iscore::ApplicationContext& ctx)
 {
     QSettings s;
 

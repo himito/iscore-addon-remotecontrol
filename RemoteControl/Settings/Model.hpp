@@ -1,5 +1,5 @@
 #pragma once
-#include <iscore/plugins/settingsdelegate/SettingsDelegateModelInterface.hpp>
+#include <iscore/plugins/settingsdelegate/SettingsDelegateModel.hpp>
 #include <iscore_addon_remotecontrol_export.h>
 
 namespace RemoteControl
@@ -12,13 +12,13 @@ struct Keys
 };
 
 class ISCORE_ADDON_REMOTECONTROL_EXPORT Model :
-        public iscore::SettingsDelegateModelInterface
+        public iscore::SettingsDelegateModel
 {
         Q_OBJECT
 
     Q_PROPERTY(bool enabled READ getEnabled WRITE setEnabled NOTIFY EnabledChanged)
     public:
-        Model();
+        Model(const iscore::ApplicationContext& ctx);
 
         bool getEnabled() const;
         void setEnabled(bool enabled);

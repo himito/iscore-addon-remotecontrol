@@ -64,6 +64,7 @@ struct WebSocketHandler : public QObject
         {
             m_answers.insert(std::make_pair("TriggerAdded", [this] (const QJsonObject& obj)
             {
+                qDebug() << obj;
                 auto json_it = obj.find("Path");
                 if(json_it == obj.end())
                     return;
@@ -82,6 +83,7 @@ struct WebSocketHandler : public QObject
 
             m_answers.insert(std::make_pair("TriggerRemoved", [this] (const QJsonObject& obj)
             {
+                qDebug() << obj;
                 auto json_it = obj.find("Path");
                 if(json_it == obj.end())
                     return;
