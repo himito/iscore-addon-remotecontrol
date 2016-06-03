@@ -97,7 +97,7 @@ Receiver::Receiver(
         if(it == obj.end())
             return;
 
-        auto path = unmarshall<Path<Scenario::TimeNodeModel>>(it->toObject());
+        auto path = unmarshall<Path<Scenario::TimeNodeModel>>((*it).toObject());
         if(!path.valid())
             return;
 
@@ -111,7 +111,7 @@ Receiver::Receiver(
         if(it == obj.end())
             return;
 
-        auto message = unmarshall<::State::Message>(it->toObject());
+        auto message = unmarshall<::State::Message>((*it).toObject());
         m_dev.updateProxy.updateRemoteValue(message.address, message.value);
     }));
 
@@ -233,7 +233,7 @@ void Receiver::processBinaryMessage(QByteArray message)
     if(it == obj.end())
         return;
 
-    auto mess = it->toString();
+    auto mess = (*it).toString();
     auto answer_it = m_answers.find(mess);
     if(answer_it == m_answers.end())
         return;
