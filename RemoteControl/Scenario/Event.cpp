@@ -10,7 +10,7 @@ Event::Event(
         const iscore::DocumentContext& ctx,
         QObject* parent_comp):
     Component{id, "EventComponent", parent_comp},
-    m_parent{Scenario::parentTimeNode(event, *safe_cast<Scenario::ScenarioInterface*>(event.parent()))}
+    m_parent{Scenario::parentTimeNode(event, *dynamic_cast<Scenario::ScenarioInterface*>(event.parent()))}
 {
     connect(&event, &Scenario::EventModel::statusChanged,
             this, [&] (Scenario::ExecutionStatus st) {
