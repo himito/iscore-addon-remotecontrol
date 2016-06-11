@@ -1,3 +1,4 @@
+build-*
 *.user
 # Compiled Object files
 *.slo

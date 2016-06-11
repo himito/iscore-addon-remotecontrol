@@ -6,43 +6,22 @@ namespace RemoteControl
 namespace Settings
 {
 
-const QString Keys::enabled = QStringLiteral("RemoteControl/Enabled");
-
-Model::Model(const iscore::ApplicationContext& ctx)
+namespace Parameters
 {
-    QSettings s;
+        const iscore::sp<ModelEnabledParameter> Enabled{
+            QStringLiteral("RemoteControl/Enabled"),
+                    false};
 
-    if(!s.contains(Keys::enabled))
-    {
-        setFirstTimeSettings();
-    }
-
-    m_enabled = s.value(Keys::enabled).toBool();
+        auto list() {
+            return std::tie(Enabled);
+        }
 }
 
-bool Model::getEnabled() const
+Model::Model(QSettings& set, const iscore::ApplicationContext& ctx)
 {
-  return m_enabled;
+    iscore::setupDefaultSettings(set, Parameters::list(), *this);
 }
 
-void Model::setEnabled(bool enabled)
-{
-  if (m_enabled == enabled)
-    return;
-
-  m_enabled = enabled;
-  QSettings s;
-  s.setValue(Keys::enabled, m_enabled);
-  emit EnabledChanged(enabled);
-}
-
-void Model::setFirstTimeSettings()
-{
-    m_enabled = true;
-
-    QSettings s;
-    s.setValue(Keys::enabled, m_enabled);
-}
-
+ISCORE_SETTINGS_PARAMETER_CPP(bool, Model, Enabled)
 }
 }

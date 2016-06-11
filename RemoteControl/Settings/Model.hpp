@@ -6,29 +6,18 @@ namespace RemoteControl
 {
 namespace Settings
 {
-struct Keys
-{
-        static const QString enabled;
-};
-
 class ISCORE_ADDON_REMOTECONTROL_EXPORT Model :
         public iscore::SettingsDelegateModel
 {
         Q_OBJECT
 
-    Q_PROPERTY(bool enabled READ getEnabled WRITE setEnabled NOTIFY EnabledChanged)
+    Q_PROPERTY(bool Enabled READ getEnabled WRITE setEnabled NOTIFY EnabledChanged FINAL)
+
+        bool m_Enabled = false;
     public:
-        Model(const iscore::ApplicationContext& ctx);
+        Model(QSettings& set, const iscore::ApplicationContext& ctx);
 
-        bool getEnabled() const;
-        void setEnabled(bool enabled);
-
-  signals:
-        void EnabledChanged(bool enabled);
-
-  private:
-        void setFirstTimeSettings() override;
-        bool m_enabled = false;
+        ISCORE_SETTINGS_PARAMETER_HPP(bool, Enabled)
 };
 
 ISCORE_SETTINGS_PARAMETER(Model, Enabled)
