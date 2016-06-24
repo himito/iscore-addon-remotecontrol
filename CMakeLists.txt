@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.1)
 project(iscore_addon_remotecontrol LANGUAGES CXX)
 
+find_package(Qt5 5.3 REQUIRED COMPONENTS WebSockets)
+
 ###  General initialization of always necessary stuff (AUTOMOC, etc) ###
 iscore_common_setup()
 
@@ -46,6 +48,7 @@ set(SRCS
 
 add_library(${PROJECT_NAME} ${SRCS} ${HDRS} ${QRCS})
 
+
 target_link_libraries(${PROJECT_NAME} PUBLIC iscore_plugin_scenario iscore_plugin_loop Qt5::WebSockets)
 
 ### Setup of the target ###
@@ -71,8 +74,10 @@ function(setup_iscore_addon AddonTarget)
     iscore_cotire_post("${AddonTarget}")
 endfunction()
 
-setup_iscore_addon(
-    ${PROJECT_NAME}
-    NAME RemoteControl
-    METADATA "${CMAKE_CURRENT_SOURCE_DIR}/Deployment/localaddon.json.in"
-     )
+setup_iscore_plugin(${PROJECT_NAME})
+
+#setup_iscore_addon(
+#    ${PROJECT_NAME}
+#    NAME RemoteControl
+#    METADATA "${CMAKE_CURRENT_SOURCE_DIR}/Deployment/localaddon.json.in"
+#     )
