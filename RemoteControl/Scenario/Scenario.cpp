@@ -5,7 +5,7 @@ namespace RemoteControl
 
 ScenarioComponent::ScenarioComponent(
         const Id<iscore::Component>& id,
-        Scenario::ScenarioModel& scenario,
+        Scenario::ProcessModel& scenario,
         ScenarioComponent::system_t& doc,
         const iscore::DocumentContext& ctx,
         QObject* parent_obj):
