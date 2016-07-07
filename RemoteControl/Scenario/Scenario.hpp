@@ -10,7 +10,7 @@ namespace RemoteControl
 class ScenarioComponent final :
         public ProcessComponent
 {
-       COMPONENT_METADATA(RemoteControl::ScenarioComponent)
+        COMPONENT_METADATA("fce752e0-e37a-4b71-bc2a-65366ec87152")
 
         using system_t = RemoteControl::DocumentPlugin;
         using hierarchy_t =
