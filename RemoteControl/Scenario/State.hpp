@@ -14,7 +14,6 @@ class State final :
                 const Id<iscore::Component>& id,
                 Scenario::StateModel& state,
                 const system_t& doc,
-                const iscore::DocumentContext& ctx,
                 QObject* parent_comp);
 
         const Key& key() const override;

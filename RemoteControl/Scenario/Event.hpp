@@ -15,7 +15,6 @@ class Event final :
                 const Id<Component>& id,
                 Scenario::EventModel& event,
                 system_t& doc,
-                const iscore::DocumentContext& ctx,
                 QObject* parent_comp);
 
         const Key& key() const override;

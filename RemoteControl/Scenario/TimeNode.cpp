@@ -8,7 +8,6 @@ TimeNode::TimeNode(
         const Id<iscore::Component>& id,
         Scenario::TimeNodeModel& timeNode,
         const TimeNode::system_t& doc,
-        const iscore::DocumentContext& ctx,
         QObject* parent_comp):
     Component{id, "TimeNodeComponent", parent_comp}
 {

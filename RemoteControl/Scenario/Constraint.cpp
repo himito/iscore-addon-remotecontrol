@@ -13,10 +13,9 @@ Constraint::Constraint(
         const Id<iscore::Component>& id,
         Scenario::ConstraintModel& constraint,
         Constraint::system_t& doc,
-        const iscore::DocumentContext& ctx,
         QObject* parent_comp):
     Component{id, "ConstraintComponent", parent_comp},
-    m_baseComponent{*this, constraint, doc, ctx, this}
+    m_baseComponent{*this, constraint, doc, this}
 {
 }
 
@@ -29,10 +28,9 @@ ProcessComponent*Constraint::make_processComponent(
         ProcessComponentFactory& factory,
         Process::ProcessModel& process,
         DocumentPlugin& system,
-        const iscore::DocumentContext& ctx,
         QObject* parent_component)
 {
-    return factory.make(id, process, system, ctx, parent_component);
+    return factory.make(id, process, system, parent_component);
 }
 
 

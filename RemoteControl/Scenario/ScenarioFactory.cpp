@@ -5,8 +5,7 @@ namespace RemoteControl
 {
 bool ScenarioFactory::matches(
         Process::ProcessModel& p,
-        const DocumentPlugin&,
-        const iscore::DocumentContext&) const
+        const DocumentPlugin&) const
 {
     return dynamic_cast<Scenario::ProcessModel*>(&p);
 }
@@ -16,10 +15,9 @@ ScenarioFactory::make(
         const Id<iscore::Component>& id,
         Process::ProcessModel& proc,
         DocumentPlugin& doc,
-        const iscore::DocumentContext& ctx,
         QObject* paren_objt) const
 {
-    return new ScenarioComponent(id, static_cast<Scenario::ProcessModel&>(proc), doc, ctx, paren_objt);
+    return new ScenarioComponent(id, static_cast<Scenario::ProcessModel&>(proc), doc, paren_objt);
 }
 
 }

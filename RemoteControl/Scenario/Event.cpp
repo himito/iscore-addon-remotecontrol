@@ -7,7 +7,6 @@ Event::Event(
         const Id<iscore::Component>& id,
         Scenario::EventModel& event,
         Event::system_t& doc,
-        const iscore::DocumentContext& ctx,
         QObject* parent_comp):
     Component{id, "EventComponent", parent_comp},
     m_parent{Scenario::parentTimeNode(event, *dynamic_cast<Scenario::ScenarioInterface*>(event.parent()))}

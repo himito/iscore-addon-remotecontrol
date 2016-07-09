@@ -31,7 +31,6 @@ class Constraint final :
                 const Id<Component>& id,
                 Scenario::ConstraintModel& constraint,
                 system_t& doc,
-                const iscore::DocumentContext& ctx,
                 QObject* parent_comp);
         ~Constraint();
 
@@ -40,7 +39,6 @@ class Constraint final :
                 ProcessComponentFactory& factory,
                 Process::ProcessModel &process,
                 DocumentPlugin &system,
-                const iscore::DocumentContext &ctx,
                 QObject *parent_component);
 
         void removing(const Process::ProcessModel& cst, const ProcessComponent& comp);

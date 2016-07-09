@@ -29,7 +29,6 @@ class ScenarioComponent final :
                const Id<Component>& id,
                Scenario::ProcessModel& scenario,
                system_t& doc,
-               const iscore::DocumentContext& ctx,
                QObject* parent_obj);
 
 
@@ -42,7 +41,6 @@ class ScenarioComponent final :
                const Id<Component>& id,
                Element& elt,
                system_t& doc,
-               const iscore::DocumentContext& ctx,
                QObject* parent);
 
         void removing(

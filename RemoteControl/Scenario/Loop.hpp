@@ -30,7 +30,6 @@ class Loop final :
                const Id<Component>& id,
                ::Loop::ProcessModel& scenario,
                system_t& doc,
-               const iscore::DocumentContext& ctx,
                QObject* parent_obj);
 
        const auto& constraints() const
@@ -41,7 +40,6 @@ class Loop final :
                const Id<Component>& id,
                Element& elt,
                system_t& doc,
-               const iscore::DocumentContext& ctx,
                QObject* parent);
 
         void removing(

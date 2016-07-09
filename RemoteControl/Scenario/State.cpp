@@ -7,7 +7,6 @@ State::State(
         const Id<iscore::Component>& id,
         Scenario::StateModel& state,
         const State::system_t& doc,
-        const iscore::DocumentContext& ctx,
         QObject* parent_comp):
     Component{id, "StateComponent", parent_comp}
 {
