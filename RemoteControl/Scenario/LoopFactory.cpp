@@ -17,7 +17,7 @@ LoopComponentFactory::make(
         DocumentPlugin& doc,
         QObject* paren_objt) const
 {
-    return new Loop(id, static_cast<::Loop::ProcessModel&>(proc), doc, paren_objt);
+    return new Loop{id, static_cast<::Loop::ProcessModel&>(proc), doc, paren_objt};
 }
 
 }

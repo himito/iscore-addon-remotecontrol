@@ -17,7 +17,7 @@ ScenarioFactory::make(
         DocumentPlugin& doc,
         QObject* paren_objt) const
 {
-    return new ScenarioComponent(id, static_cast<Scenario::ProcessModel&>(proc), doc, paren_objt);
+    return new ScenarioComponentBase(id, static_cast<Scenario::ProcessModel&>(proc), doc, paren_objt);
 }
 
 }

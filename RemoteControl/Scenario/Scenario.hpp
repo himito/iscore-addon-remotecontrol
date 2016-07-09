@@ -7,34 +7,18 @@
 #include <QMetaObject>
 namespace RemoteControl
 {
-class ScenarioComponent final :
+class ScenarioComponentBase final :
         public ProcessComponent
 {
         COMPONENT_METADATA("fce752e0-e37a-4b71-bc2a-65366ec87152")
 
-        using system_t = RemoteControl::DocumentPlugin;
-        using hierarchy_t =
-           ScenarioComponentHierarchyManager<
-               ScenarioComponent,
-               system_t,
-               Scenario::ProcessModel,
-               Constraint,
-               Event,
-               TimeNode,
-               State
-        >;
-
     public:
-       ScenarioComponent(
+            using system_t = RemoteControl::DocumentPlugin;
+       ScenarioComponentBase(
                const Id<Component>& id,
                Scenario::ProcessModel& scenario,
                system_t& doc,
                QObject* parent_obj);
-
-
-
-       const auto& constraints() const
-       { return m_hm.constraints(); }
 
        template<typename Component_T, typename Element>
        Component_T* make(
@@ -43,25 +27,16 @@ class ScenarioComponent final :
                system_t& doc,
                QObject* parent);
 
-        void removing(
-                const Scenario::ConstraintModel& elt,
-                const Constraint& comp);
-
-        void removing(
-                const Scenario::EventModel& elt,
-                const Event& comp);
-
-        void removing(
-                const Scenario::TimeNodeModel& elt,
-                const TimeNode& comp);
-
-        void removing(
-                const Scenario::StateModel& elt,
-                const State& comp);
-
-    private:
-        hierarchy_t m_hm;
-
+       template<typename... Args>
+       void removing(Args&&...) { }
 };
 
+using ScenarioComponent = HierarchicalScenarioComponent<
+    ScenarioComponentBase,
+    ScenarioComponentBase::system_t,
+    Scenario::ProcessModel,
+    Constraint,
+    Event,
+    TimeNode,
+    State>;
 }

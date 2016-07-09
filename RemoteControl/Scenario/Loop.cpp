@@ -3,70 +3,50 @@
 namespace RemoteControl
 {
 
-Loop::Loop(
+LoopBase::LoopBase(
         const Id<iscore::Component>& id,
         ::Loop::ProcessModel& scenario,
-        Loop::system_t& doc,
+        LoopBase::system_t& doc,
         QObject* parent_obj):
-    ProcessComponent{scenario, id, "LoopComponent", parent_obj},
-    m_hm{*this, scenario, doc, this}
+    ProcessComponent_T{scenario, id, "LoopComponent", parent_obj},
+    system{doc}
 {
 }
 
 template<>
-Constraint* Loop::make<Constraint, Scenario::ConstraintModel>(
+Constraint* LoopBase::make<Constraint, Scenario::ConstraintModel>(
         const Id<iscore::Component>& id,
         Scenario::ConstraintModel& elt,
-        Loop::system_t& doc,
         QObject* parent)
 {
-    return new Constraint{id, elt, doc, parent};
+    return new Constraint{id, elt, system, parent};
 }
 
 template<>
-Event* Loop::make<Event, Scenario::EventModel>(
+Event* LoopBase::make<Event, Scenario::EventModel>(
         const Id<iscore::Component>& id,
         Scenario::EventModel& elt,
-        Loop::system_t& doc,
         QObject* parent)
 {
-    return new Event{id, elt, doc, parent};
+    return new Event{id, elt, system, parent};
 }
 
 template<>
-TimeNode* Loop::make<TimeNode, Scenario::TimeNodeModel>(
+TimeNode* LoopBase::make<TimeNode, Scenario::TimeNodeModel>(
         const Id<iscore::Component>& id,
         Scenario::TimeNodeModel& elt,
-        Loop::system_t& doc,
         QObject* parent)
 {
-    return new TimeNode{id, elt, doc, parent};
+    return new TimeNode{id, elt, system, parent};
 }
 
 template<>
-State* Loop::make<State, Scenario::StateModel>(
+State* LoopBase::make<State, Scenario::StateModel>(
         const Id<iscore::Component>& id,
         Scenario::StateModel& elt,
-        Loop::system_t& doc,
         QObject* parent)
 {
-    return new State{id, elt, doc, parent};
-}
-
-void Loop::removing(const Scenario::ConstraintModel& elt, const Constraint& comp)
-{
-}
-
-void Loop::removing(const Scenario::EventModel& elt, const Event& comp)
-{
-}
-
-void Loop::removing(const Scenario::TimeNodeModel& elt, const TimeNode& comp)
-{
-}
-
-void Loop::removing(const Scenario::StateModel& elt, const State& comp)
-{
+    return new State{id, elt, system, parent};
 }
 
 }
