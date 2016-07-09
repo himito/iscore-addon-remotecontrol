@@ -22,7 +22,7 @@ class ScenarioBase :
 
        template<typename Component_T, typename Element>
        Component_T* make(
-               const Id<Component>& id,
+               const Id<iscore::Component>& id,
                Element& elt)
        {
            return new Component_T{id, elt, system(), this};

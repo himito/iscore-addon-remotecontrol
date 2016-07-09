@@ -17,13 +17,13 @@ class ConstraintBase :
         using process_component_factory_list_t = RemoteControl::ProcessComponentFactoryList;
 
         ConstraintBase(
-                const Id<Component>& id,
+                const Id<iscore::Component>& id,
                 Scenario::ConstraintModel& constraint,
                 system_t& doc,
                 QObject* parent_comp);
 
         ProcessComponent* make_processComponent(
-                const Id<Component> & id,
+                const Id<iscore::Component> & id,
                 ProcessComponentFactory& factory,
                 Process::ProcessModel &process);
 

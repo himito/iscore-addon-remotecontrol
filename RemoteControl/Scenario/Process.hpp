@@ -3,7 +3,7 @@
 #include <Process/Process.hpp>
 #include <iscore/component/Component.hpp>
 #include <iscore/component/ComponentFactory.hpp>
-#include <Scenario/Document/Components/ConstraintComponent.hpp>
+#include <Scenario/Document/Components/ProcessComponent.hpp>
 #include <iscore_addon_remotecontrol_export.h>
 
 namespace RemoteControl

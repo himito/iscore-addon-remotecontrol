@@ -12,7 +12,7 @@ class Event final :
         using system_t = RemoteControl::DocumentPlugin;
 
         Event(
-                const Id<Component>& id,
+                const Id<iscore::Component>& id,
                 Scenario::EventModel& event,
                 system_t& doc,
                 QObject* parent_comp);
