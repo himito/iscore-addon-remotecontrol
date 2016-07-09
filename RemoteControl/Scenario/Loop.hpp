@@ -14,32 +14,34 @@ class LoopBase :
         COMPONENT_METADATA("67fb5b6b-12fb-40a2-8108-429b89251a1b")
 
     public:
-       using system_t = RemoteControl::DocumentPlugin;
-       system_t& system;
        LoopBase(
-               const Id<iscore::Component>& id,
                ::Loop::ProcessModel& scenario,
-               system_t& doc,
+               DocumentPlugin& doc,
+               const Id<iscore::Component>& id,
                QObject* parent_obj);
 
        template<typename Component_T, typename Element>
        Component_T* make(
                const Id<iscore::Component>& id,
-               Element& elt,
-               QObject* parent);
+               Element& elt)
+       {
+           return new Component_T{id, elt, system(), this};
+       }
 
        template<typename... Args>
-       void removing(Args&&...) {}
+       void removing(Args&&...) { }
 };
 
-using Loop =
+using LoopComponent =
    HierarchicalBaseScenario<
        LoopBase,
-       LoopBase::system_t,
        ::Loop::ProcessModel,
        Constraint,
        Event,
        TimeNode,
        State
 >;
+
+REMOTECONTROL_PROCESS_COMPONENT_FACTORY(LoopComponentFactory, "5990fe04-4a3d-40c4-bebb-572add54dd44", LoopComponent, ::Loop::ProcessModel)
+
 }

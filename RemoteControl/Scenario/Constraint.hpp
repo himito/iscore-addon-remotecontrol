@@ -5,53 +5,39 @@
 
 namespace RemoteControl
 {
-namespace Mix
+class ConstraintBase :
+        public Scenario::GenericConstraintComponent<RemoteControl::DocumentPlugin>
 {
-class ProcessModel;
-}
-class Constraint final :
-        public iscore::Component
-{
+        COMPONENT_METADATA("b079041c-f11f-49b1-a88f-b2bc070affb1")
     public:
+        using parent_t = Scenario::GenericConstraintComponent<RemoteControl::DocumentPlugin>;
         using system_t = RemoteControl::DocumentPlugin;
         using process_component_t = RemoteControl::ProcessComponent;
         using process_component_factory_t = RemoteControl::ProcessComponentFactory;
         using process_component_factory_list_t = RemoteControl::ProcessComponentFactoryList;
 
-        using parent_t = ::ConstraintComponentHierarchyManager<
-            Constraint,
-            system_t,
-            process_component_t,
-            process_component_factory_list_t
-        >;
-
-        const Key& key() const override;
-
-        Constraint(
+        ConstraintBase(
                 const Id<Component>& id,
                 Scenario::ConstraintModel& constraint,
                 system_t& doc,
                 QObject* parent_comp);
-        ~Constraint();
 
         ProcessComponent* make_processComponent(
                 const Id<Component> & id,
                 ProcessComponentFactory& factory,
-                Process::ProcessModel &process,
-                DocumentPlugin &system,
-                QObject *parent_component);
+                Process::ProcessModel &process);
 
         void removing(const Process::ProcessModel& cst, const ProcessComponent& comp);
-
-        const auto& processes() const
-        { return m_baseComponent.processes(); }
-
-    private:
-        Mix::ProcessModel* findMix() const;
-
-        parent_t m_baseComponent;
 };
 
+class Constraint final : public ConstraintComponentHierarchyManager<
+    ConstraintBase,
+    ConstraintBase::process_component_t,
+    ConstraintBase::process_component_factory_list_t
+>
+{
+    public:
+        using hierarchy_t::ConstraintComponentHierarchyManager;
 
-
+};
 }

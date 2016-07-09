@@ -3,8 +3,8 @@
 #include <RemoteControl/ApplicationPlugin.hpp>
 #include <RemoteControl/Settings/Factory.hpp>
 
-#include <RemoteControl/Scenario/ScenarioFactory.hpp>
-#include <RemoteControl/Scenario/LoopFactory.hpp>
+#include <RemoteControl/Scenario/Scenario.hpp>
+#include <RemoteControl/Scenario/Loop.hpp>
 iscore_addon_remotecontrol::iscore_addon_remotecontrol() :
     QObject {}
 {
@@ -38,7 +38,7 @@ std::vector<std::unique_ptr<iscore::FactoryInterfaceBase>> iscore_addon_remoteco
             FW<iscore::SettingsDelegateFactory,
             RemoteControl::Settings::Factory>,
             FW<RemoteControl::ProcessComponentFactory,
-                RemoteControl::ScenarioFactory,
+                RemoteControl::ScenarioComponentFactory,
                 RemoteControl::LoopComponentFactory>
 
       >
