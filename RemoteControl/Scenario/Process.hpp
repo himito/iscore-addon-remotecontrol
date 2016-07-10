@@ -31,9 +31,7 @@ class ISCORE_ADDON_REMOTECONTROL_EXPORT ProcessComponentFactory :
             DocumentPlugin,
             ProcessComponentFactory>
 {
-        ISCORE_ABSTRACT_FACTORY_DECL(
-                ProcessComponentFactory,
-                "b8a691ea-5352-468d-b78c-04e420c252d1")
+        ISCORE_ABSTRACT_FACTORY("b8a691ea-5352-468d-b78c-04e420c252d1")
     public:
         virtual ~ProcessComponentFactory();
         virtual ProcessComponent* make(
@@ -79,5 +77,5 @@ using ProcessComponentFactoryList =
 class FactoryName final : \
         public RemoteControl::ProcessComponentFactory_T<ProcessComponent, Process> \
 { \
-        ISCORE_CONCRETE_FACTORY_DECL(Uuid)  \
+        ISCORE_CONCRETE_FACTORY(Uuid)  \
 };
