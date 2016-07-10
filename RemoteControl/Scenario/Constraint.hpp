@@ -11,7 +11,7 @@ class ConstraintBase :
         COMPONENT_METADATA("b079041c-f11f-49b1-a88f-b2bc070affb1")
     public:
         using parent_t = Scenario::GenericConstraintComponent<RemoteControl::DocumentPlugin>;
-        using system_t = RemoteControl::DocumentPlugin;
+        using DocumentPlugin = RemoteControl::DocumentPlugin;
         using process_component_t = RemoteControl::ProcessComponent;
         using process_component_factory_t = RemoteControl::ProcessComponentFactory;
         using process_component_factory_list_t = RemoteControl::ProcessComponentFactoryList;
@@ -19,7 +19,7 @@ class ConstraintBase :
         ConstraintBase(
                 const Id<iscore::Component>& id,
                 Scenario::ConstraintModel& constraint,
-                system_t& doc,
+                DocumentPlugin& doc,
                 QObject* parent_comp);
 
         ProcessComponent* make_processComponent(

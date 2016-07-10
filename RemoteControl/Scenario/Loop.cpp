@@ -8,7 +8,7 @@ LoopBase::LoopBase(
         DocumentPlugin& doc,
         const Id<iscore::Component>& id,
         QObject* parent_obj):
-    ProcessComponent_T{scenario, doc, id, "LoopComponent", parent_obj}
+    ProcessComponent_T<Loop::ProcessModel>{scenario, doc, id, "LoopComponent", parent_obj}
 {
 }
 

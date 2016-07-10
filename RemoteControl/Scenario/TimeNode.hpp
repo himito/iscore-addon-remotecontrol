@@ -8,19 +8,13 @@ namespace RemoteControl
 class TimeNode final :
         public iscore::Component
 {
+        COMPONENT_METADATA("79bdaa90-7e1d-41e5-ab1a-8f68fd0807bf")
     public:
-        using system_t = RemoteControl::DocumentPlugin;
-
         TimeNode(
                 const Id<iscore::Component>& id,
                 Scenario::TimeNodeModel& timeNode,
-                const system_t& doc,
+                const DocumentPlugin& doc,
                 QObject* parent_comp);
 
-        const Key& key() const override;
-
-        ~TimeNode();
-
-    private:
 };
 }
