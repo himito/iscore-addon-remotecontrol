@@ -40,5 +40,6 @@ using ScenarioComponent = HierarchicalScenarioComponent<
     TimeNode,
     State>;
 
-REMOTECONTROL_PROCESS_COMPONENT_FACTORY(ScenarioComponentFactory, "f8f343b8-96ab-4f41-946f-56c71a121e75", ScenarioComponent, ::Scenario::ProcessModel)
+
+using ScenarioComponentFactory = ProcessComponentFactory_T<ScenarioComponent>;
 }

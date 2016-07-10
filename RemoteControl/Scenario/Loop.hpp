@@ -42,6 +42,6 @@ using LoopComponent =
        State
 >;
 
-REMOTECONTROL_PROCESS_COMPONENT_FACTORY(LoopComponentFactory, "5990fe04-4a3d-40c4-bebb-572add54dd44", LoopComponent, ::Loop::ProcessModel)
+using LoopComponentFactory = ProcessComponentFactory_T<LoopComponent>;
 
 }

@@ -42,17 +42,29 @@ class ISCORE_ADDON_REMOTECONTROL_EXPORT ProcessComponentFactory :
 };
 
 template<
-        typename ProcessComponent_T,
-        typename Process_T>
+        typename ProcessComponent_T>
 class ProcessComponentFactory_T : public ProcessComponentFactory
 {
     public:
         using ProcessComponentFactory::ProcessComponentFactory;
 
+        using model_type = typename ProcessComponent_T::model_type;
+        using component_type = ProcessComponent_T;
+
+        static auto static_concreteFactoryKey()
+        {
+            return ProcessComponent_T::static_key().impl();
+        }
+
+        ConcreteFactoryKey concreteFactoryKey() const final override
+        {
+            return ProcessComponent_T::static_key().impl(); // Note : here there is a conversion between UuidKey<Component> and ConcreteFactoryKey
+        }
+
         bool matches(
                 Process::ProcessModel& p, const DocumentPlugin&) const final override
         {
-            return dynamic_cast<Process_T*>(&p);
+            return dynamic_cast<model_type*>(&p);
         }
 
         ProcessComponent* make(
@@ -61,7 +73,7 @@ class ProcessComponentFactory_T : public ProcessComponentFactory
                 const Id<iscore::Component>& id,
                 QObject* paren_objt) const final override
         {
-            return new ProcessComponent_T{static_cast<Process_T&>(proc), doc, id, paren_objt};
+            return new ProcessComponent_T{static_cast<model_type&>(proc), doc, id, paren_objt};
         }
 };
 
@@ -71,11 +83,3 @@ using ProcessComponentFactoryList =
             DocumentPlugin,
             ProcessComponentFactory>;
 }
-
-
-#define REMOTECONTROL_PROCESS_COMPONENT_FACTORY(FactoryName, Uuid, ProcessComponent, Process) \
-class FactoryName final : \
-        public RemoteControl::ProcessComponentFactory_T<ProcessComponent, Process> \
-{ \
-        ISCORE_CONCRETE_FACTORY(Uuid)  \
-};
