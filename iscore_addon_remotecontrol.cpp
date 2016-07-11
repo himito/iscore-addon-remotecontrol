@@ -57,6 +57,6 @@ QStringList iscore_addon_remotecontrol::required() const
 
 UuidKey<iscore::Plugin> iscore_addon_remotecontrol::key() const
 {
-    return "ecffb9d5-3d67-4b89-a64f-341b68cd9603";
+    return_uuid("ecffb9d5-3d67-4b89-a64f-341b68cd9603");
 }
 
