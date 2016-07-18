@@ -13,13 +13,10 @@ set(SRCS
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Settings/View.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Settings/View.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Settings/Factory.hpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Settings/Factory.cpp"
 
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Process.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Scenario.hpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/ScenarioFactory.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Loop.hpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/LoopFactory.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Constraint.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Event.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/TimeNode.hpp"
@@ -27,9 +24,7 @@ set(SRCS
 
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Process.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Scenario.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/ScenarioFactory.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Loop.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/LoopFactory.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Constraint.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Event.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/TimeNode.cpp"
