@@ -145,9 +145,9 @@ void Receiver::registerTimeNode(Path<Scenario::TimeNodeModel> tn)
     m_activeTimeNodes.push_back(tn);
 
     QJsonObject mess;
-    mess["Message"] = "TriggerAdded";
-    mess["Path"] = toJsonObject(tn);
-    mess["Name"] = tn.find().metadata.name();
+    mess[iscore::StringConstant().Message] = "TriggerAdded";
+    mess[iscore::StringConstant().Path] = toJsonObject(tn);
+    mess[iscore::StringConstant().Name] = tn.find().metadata.name();
     QJsonDocument doc{mess};
     auto json = doc.toJson();
 
@@ -166,8 +166,8 @@ void Receiver::unregisterTimeNode(Path<Scenario::TimeNodeModel> tn)
     m_activeTimeNodes.remove(tn);
 
     QJsonObject mess;
-    mess["Message"] = "TriggerRemoved";
-    mess["Path"] = toJsonObject(tn);
+    mess[iscore::StringConstant().Message] = "TriggerRemoved";
+    mess[iscore::StringConstant().Path] = toJsonObject(tn);
     QJsonDocument doc{mess};
     auto json = doc.toJson();
 
@@ -191,19 +191,19 @@ void Receiver::onNewConnection()
 
     {
         QJsonObject mess;
-        mess["Message"] = "DeviceTree";
-        mess["Path"] = toJsonObject(m_dev.rootNode());
+        mess[iscore::StringConstant().Message] = "DeviceTree";
+        mess[iscore::StringConstant().Path] = toJsonObject(m_dev.rootNode());
         QJsonDocument doc{mess};
         client->sendTextMessage(doc.toJson());
     }
 
     {
         QJsonObject mess;
-        mess["Message"] = "TriggerAdded";
+        mess[iscore::StringConstant().Message] = "TriggerAdded";
         for(auto path : m_activeTimeNodes)
         {
-            mess["Path"] = toJsonObject(path);
-            mess["Name"] = path.find().metadata.name();
+            mess[iscore::StringConstant().Path] = toJsonObject(path);
+            mess[iscore::StringConstant().Name] = path.find().metadata.name();
             QJsonDocument doc{mess};
             auto json = doc.toJson();
             client->sendTextMessage(json);
