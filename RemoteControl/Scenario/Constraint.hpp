@@ -2,6 +2,7 @@
 #include <RemoteControl/Scenario/Process.hpp>
 #include <RemoteControl/DocumentPlugin.hpp>
 #include <Scenario/Document/Components/ConstraintComponent.hpp>
+#include <iscore/component/ComponentHierarchy.hpp>
 
 namespace RemoteControl
 {
@@ -12,9 +13,9 @@ class ConstraintBase :
     public:
         using parent_t = Scenario::GenericConstraintComponent<RemoteControl::DocumentPlugin>;
         using DocumentPlugin = RemoteControl::DocumentPlugin;
-        using process_component_t = RemoteControl::ProcessComponent;
-        using process_component_factory_t = RemoteControl::ProcessComponentFactory;
-        using process_component_factory_list_t = RemoteControl::ProcessComponentFactoryList;
+        using model_t = Process::ProcessModel;
+        using component_t = RemoteControl::ProcessComponent;
+        using component_factory_list_t = RemoteControl::ProcessComponentFactoryList;
 
         ConstraintBase(
                 const Id<iscore::Component>& id,
@@ -22,7 +23,7 @@ class ConstraintBase :
                 DocumentPlugin& doc,
                 QObject* parent_comp);
 
-        ProcessComponent* make_processComponent(
+        ProcessComponent* make(
                 const Id<iscore::Component> & id,
                 ProcessComponentFactory& factory,
                 Process::ProcessModel &process);
@@ -30,14 +31,11 @@ class ConstraintBase :
         void removing(const Process::ProcessModel& cst, const ProcessComponent& comp);
 };
 
-class Constraint final : public ConstraintComponentHierarchyManager<
-    ConstraintBase,
-    ConstraintBase::process_component_t,
-    ConstraintBase::process_component_factory_list_t
->
+class Constraint final :
+        public iscore::PolymorphicComponentHierarchy<ConstraintBase>
 {
     public:
-        using hierarchy_t::ConstraintComponentHierarchyManager;
+        using iscore::PolymorphicComponentHierarchy<ConstraintBase>::PolymorphicComponentHierarchyManager;
 
 };
 }
