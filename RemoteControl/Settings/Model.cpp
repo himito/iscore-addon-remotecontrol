@@ -12,7 +12,7 @@ namespace Parameters
             QStringLiteral("RemoteControl/Enabled"),
                     false};
 
-        auto list() {
+        static auto list() {
             return std::tie(Enabled);
         }
 }
