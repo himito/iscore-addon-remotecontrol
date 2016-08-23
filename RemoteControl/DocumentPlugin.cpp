@@ -147,7 +147,7 @@ void Receiver::registerTimeNode(Path<Scenario::TimeNodeModel> tn)
     QJsonObject mess;
     mess[iscore::StringConstant().Message] = "TriggerAdded";
     mess[iscore::StringConstant().Path] = toJsonObject(tn);
-    mess[iscore::StringConstant().Name] = tn.find().metadata.name();
+    mess[iscore::StringConstant().Name] = tn.find().metadata.getName();
     QJsonDocument doc{mess};
     auto json = doc.toJson();
 
@@ -203,7 +203,7 @@ void Receiver::onNewConnection()
         for(auto path : m_activeTimeNodes)
         {
             mess[iscore::StringConstant().Path] = toJsonObject(path);
-            mess[iscore::StringConstant().Name] = path.find().metadata.name();
+            mess[iscore::StringConstant().Name] = path.find().metadata.getName();
             QJsonDocument doc{mess};
             auto json = doc.toJson();
             client->sendTextMessage(json);
