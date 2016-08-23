@@ -9,7 +9,7 @@ namespace RemoteControl
 class ConstraintBase :
         public Scenario::GenericConstraintComponent<RemoteControl::DocumentPlugin>
 {
-        COMPONENT_METADATA("b079041c-f11f-49b1-a88f-b2bc070affb1")
+        COMMON_COMPONENT_METADATA("b079041c-f11f-49b1-a88f-b2bc070affb1")
     public:
         using parent_t = Scenario::GenericConstraintComponent<RemoteControl::DocumentPlugin>;
         using DocumentPlugin = RemoteControl::DocumentPlugin;

@@ -12,6 +12,7 @@ namespace RemoteControl
 class ISCORE_ADDON_REMOTECONTROL_EXPORT ProcessComponent :
         public Scenario::GenericProcessComponent<DocumentPlugin>
 {
+        ABSTRACT_COMPONENT_METADATA(RemoteControl::ProcessComponent, "b8a691ea-5352-468d-b78c-04e420c252d1")
     public:
         ProcessComponent(
                 Process::ProcessModel& proc,
@@ -32,7 +33,7 @@ class ISCORE_ADDON_REMOTECONTROL_EXPORT ProcessComponentFactory :
             DocumentPlugin,
             ProcessComponentFactory>
 {
-        ISCORE_ABSTRACT_FACTORY("b8a691ea-5352-468d-b78c-04e420c252d1")
+        ISCORE_ABSTRACT_COMPONENT_FACTORY(RemoteControl::ProcessComponent)
     public:
         virtual ~ProcessComponentFactory();
         virtual ProcessComponent* make(

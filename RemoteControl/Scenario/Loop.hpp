@@ -11,7 +11,7 @@ namespace RemoteControl
 class LoopBase :
         public ProcessComponent_T<Loop::ProcessModel>
 {
-        COMPONENT_METADATA("67fb5b6b-12fb-40a2-8108-429b89251a1b")
+        COMMON_COMPONENT_METADATA("67fb5b6b-12fb-40a2-8108-429b89251a1b")
 
     public:
        LoopBase(
