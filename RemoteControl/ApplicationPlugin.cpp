@@ -13,20 +13,13 @@ ApplicationPlugin::ApplicationPlugin(
 
 }
 
-
-void ApplicationPlugin::on_newDocument(
-        iscore::Document* doc)
+void ApplicationPlugin::on_createdDocument(
+        iscore::Document& doc)
 {
-    doc->model().addPluginModel(
-                new DocumentPlugin{doc->context(), &doc->model()});
+    doc.model().addPluginModel(
+                new DocumentPlugin{doc.context(), &doc.model()});
 
 }
 
-void ApplicationPlugin::on_loadedDocument(iscore::Document *doc)
-{
-    doc->model().addPluginModel(
-                new DocumentPlugin{doc->context(), &doc->model()});
-
-}
 }
 

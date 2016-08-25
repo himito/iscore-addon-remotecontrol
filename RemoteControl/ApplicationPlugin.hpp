@@ -10,7 +10,6 @@ class ApplicationPlugin final :
         ApplicationPlugin(const iscore::GUIApplicationContext& app);
 
     protected:
-        void on_newDocument(iscore::Document* doc) override;
-        void on_loadedDocument(iscore::Document* doc) override;
+        void on_createdDocument(iscore::Document& doc) override;
 };
 }
