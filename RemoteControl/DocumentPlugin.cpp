@@ -57,11 +57,11 @@ void DocumentPlugin::create()
     auto scenar = safe_cast<Scenario::ScenarioDocumentModel*>(&doc);
     auto& cstr = scenar->baseScenario().constraint();
     m_root = new Constraint(
-                getStrongId(cstr.components),
+                getStrongId(cstr.components()),
                 cstr,
                 *this,
                 this);
-    cstr.components.add(m_root);
+    cstr.components().add(m_root);
 }
 
 void DocumentPlugin::cleanup()
@@ -74,7 +74,7 @@ void DocumentPlugin::cleanup()
     auto scenar = safe_cast<Scenario::ScenarioDocumentModel*>(&doc);
     auto& cstr = scenar->baseScenario().constraint();
 
-    cstr.components.remove(m_root);
+    cstr.components().remove(m_root);
     m_root = nullptr;
 }
 
@@ -147,7 +147,7 @@ void Receiver::registerTimeNode(Path<Scenario::TimeNodeModel> tn)
     QJsonObject mess;
     mess[iscore::StringConstant().Message] = "TriggerAdded";
     mess[iscore::StringConstant().Path] = toJsonObject(tn);
-    mess[iscore::StringConstant().Name] = tn.find().metadata.getName();
+    mess[iscore::StringConstant().Name] = tn.find().metadata().getName();
     QJsonDocument doc{mess};
     auto json = doc.toJson();
 
@@ -203,7 +203,7 @@ void Receiver::onNewConnection()
         for(auto path : m_activeTimeNodes)
         {
             mess[iscore::StringConstant().Path] = toJsonObject(path);
-            mess[iscore::StringConstant().Name] = path.find().metadata.getName();
+            mess[iscore::StringConstant().Name] = path.find().metadata().getName();
             QJsonDocument doc{mess};
             auto json = doc.toJson();
             client->sendTextMessage(json);
