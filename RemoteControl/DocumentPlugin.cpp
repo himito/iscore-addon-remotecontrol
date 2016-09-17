@@ -22,8 +22,9 @@ namespace RemoteControl
 {
 DocumentPlugin::DocumentPlugin(
         const iscore::DocumentContext& doc,
+        Id<iscore::DocumentPlugin> id,
         QObject* parent):
-    iscore::DocumentPlugin{doc, "RemoteControl::DocumentPlugin", parent},
+    iscore::DocumentPlugin{doc, std::move(id), "RemoteControl::DocumentPlugin", parent},
     receiver{doc, 10212}
 {
     con(doc.document, &iscore::Document::aboutToClose,

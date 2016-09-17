@@ -4,6 +4,7 @@
 #include <core/document/Document.hpp>
 #include <core/document/DocumentModel.hpp>
 
+#include <iscore/tools/SettableIdentifierGeneration.hpp>
 namespace RemoteControl
 {
 ApplicationPlugin::ApplicationPlugin(
@@ -17,7 +18,7 @@ void ApplicationPlugin::on_createdDocument(
         iscore::Document& doc)
 {
     doc.model().addPluginModel(
-                new DocumentPlugin{doc.context(), &doc.model()});
+                new DocumentPlugin{doc.context(), getStrongId(doc.model().pluginModels()), &doc.model()});
 
 }
 

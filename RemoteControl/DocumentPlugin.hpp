@@ -58,6 +58,7 @@ class DocumentPlugin : public iscore::DocumentPlugin
     public:
         DocumentPlugin(
                 const iscore::DocumentContext& doc,
+                Id<iscore::DocumentPlugin> id,
                 QObject* parent);
 
         ~DocumentPlugin();
