@@ -140,7 +140,7 @@ Receiver::~Receiver()
 
 void Receiver::registerTimeNode(Path<Scenario::TimeNodeModel> tn)
 {
-    if(find(m_activeTimeNodes, tn) != m_activeTimeNodes.end())
+    if(ossia::find(m_activeTimeNodes, tn) != m_activeTimeNodes.end())
         return;
 
     m_activeTimeNodes.push_back(tn);
@@ -161,7 +161,7 @@ void Receiver::registerTimeNode(Path<Scenario::TimeNodeModel> tn)
 
 void Receiver::unregisterTimeNode(Path<Scenario::TimeNodeModel> tn)
 {
-    if(find(m_activeTimeNodes, tn) == m_activeTimeNodes.end())
+    if(ossia::find(m_activeTimeNodes, tn) == m_activeTimeNodes.end())
         return;
 
     m_activeTimeNodes.remove(tn);
