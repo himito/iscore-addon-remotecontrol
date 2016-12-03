@@ -16,6 +16,7 @@
 #include <iscore/serialization/VisitorCommon.hpp>
 #include <Scenario/Application/ScenarioActions.hpp>
 #include <iscore/tools/ModelPathSerialization.hpp>
+#include <iscore/actions/ActionManager.hpp>
 #include <iscore/actions/Action.hpp>
 #include <State/Message.hpp>
 namespace RemoteControl
