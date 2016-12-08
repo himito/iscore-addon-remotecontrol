@@ -21,16 +21,16 @@ iscore::GUIApplicationContextPlugin*iscore_addon_remotecontrol::make_application
     return new RemoteControl::ApplicationPlugin{app};
 }
 
-std::vector<std::unique_ptr<iscore::FactoryListInterface> > iscore_addon_remotecontrol::factoryFamilies()
+std::vector<std::unique_ptr<iscore::InterfaceListBase> > iscore_addon_remotecontrol::factoryFamilies()
 {
-    return make_ptr_vector<iscore::FactoryListInterface,
+    return make_ptr_vector<iscore::InterfaceListBase,
             RemoteControl::ProcessComponentFactoryList
             >();
 }
 
-std::vector<std::unique_ptr<iscore::FactoryInterfaceBase>> iscore_addon_remotecontrol::factories(
+std::vector<std::unique_ptr<iscore::InterfaceBase>> iscore_addon_remotecontrol::factories(
         const iscore::ApplicationContext& ctx,
-        const iscore::AbstractFactoryKey& key) const
+        const iscore::InterfaceKey& key) const
 {
     return instantiate_factories<
             iscore::ApplicationContext,

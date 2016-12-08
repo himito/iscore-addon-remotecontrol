@@ -35,12 +35,12 @@ class iscore_addon_remotecontrol final :
                 const iscore::GUIApplicationContext& app) override;
 
 
-        std::vector<std::unique_ptr<iscore::FactoryListInterface>> factoryFamilies() override;
+        std::vector<std::unique_ptr<iscore::InterfaceListBase>> factoryFamilies() override;
 
 
-        std::vector<std::unique_ptr<iscore::FactoryInterfaceBase>> factories(
+        std::vector<std::unique_ptr<iscore::InterfaceBase>> factories(
                 const iscore::ApplicationContext& ctx,
-                const iscore::AbstractFactoryKey& factoryName) const override;
+                const iscore::InterfaceKey& factoryName) const override;
 
         iscore::Version version() const override;
         QStringList required() const override;
