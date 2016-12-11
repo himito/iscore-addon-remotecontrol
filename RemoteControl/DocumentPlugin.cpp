@@ -106,13 +106,14 @@ Receiver::Receiver(
         tn.trigger()->triggeredByGui();
     }));
 
-    m_answers.insert(std::make_pair("Message", [this] (const QJsonObject& obj)
+    m_answers.insert(std::make_pair(iscore::StringConstant().Message, [this] (const QJsonObject& obj)
     {
-        auto it = obj.find("Message");
+        // The message is stored at the "root" level of the json.
+        auto it = obj.find(iscore::StringConstant().Address);
         if(it == obj.end())
             return;
 
-        auto message = unmarshall<::State::Message>((*it).toObject());
+        auto message = unmarshall<::State::Message>(obj);
         m_dev.updateProxy.updateRemoteValue(message.address, message.value);
     }));
 
@@ -194,7 +195,7 @@ void Receiver::onNewConnection()
     {
         QJsonObject mess;
         mess[iscore::StringConstant().Message] = "DeviceTree";
-        mess[iscore::StringConstant().Path] = toJsonObject(m_dev.rootNode());
+        mess["Nodes"] = toJsonObject(m_dev.rootNode());
         QJsonDocument doc{mess};
         client->sendTextMessage(doc.toJson());
     }
@@ -230,7 +231,7 @@ void Receiver::processBinaryMessage(QByteArray message)
         return;
 
     auto obj = doc.object();
-    auto it = obj.find("Message");
+    auto it = obj.find(iscore::StringConstant().Message);
     if(it == obj.end())
         return;
 
