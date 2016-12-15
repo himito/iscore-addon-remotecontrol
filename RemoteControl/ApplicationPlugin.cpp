@@ -4,7 +4,7 @@
 #include <core/document/Document.hpp>
 #include <core/document/DocumentModel.hpp>
 
-#include <iscore/tools/SettableIdentifierGeneration.hpp>
+#include <iscore/tools/IdentifierGeneration.hpp>
 namespace RemoteControl
 {
 ApplicationPlugin::ApplicationPlugin(

@@ -1,8 +1,8 @@
 #pragma once
 #include <RemoteControl/DocumentPlugin.hpp>
 #include <Process/Process.hpp>
-#include <iscore/component/Component.hpp>
-#include <iscore/component/ComponentFactory.hpp>
+#include <iscore/model/Component.hpp>
+#include <iscore/model/ComponentFactory.hpp>
 #include <Scenario/Document/Components/ProcessComponent.hpp>
 #include <iscore_addon_remotecontrol_export.h>
 #include <iscore/plugins/customfactory/ModelFactory.hpp>

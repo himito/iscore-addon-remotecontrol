@@ -2,7 +2,7 @@
 #include <RemoteControl/Scenario/Process.hpp>
 #include <RemoteControl/DocumentPlugin.hpp>
 #include <Scenario/Document/Components/ConstraintComponent.hpp>
-#include <iscore/component/ComponentHierarchy.hpp>
+#include <iscore/model/ComponentHierarchy.hpp>
 
 namespace RemoteControl
 {

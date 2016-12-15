@@ -34,14 +34,11 @@ std::vector<std::unique_ptr<iscore::InterfaceBase>> iscore_addon_remotecontrol::
 {
     return instantiate_factories<
             iscore::ApplicationContext,
-            TL<
             FW<iscore::SettingsDelegateFactory,
             RemoteControl::Settings::Factory>,
             FW<RemoteControl::ProcessComponentFactory,
                 RemoteControl::ScenarioComponentFactory,
                 RemoteControl::LoopComponentFactory>
-
-      >
             >(ctx, key);
 }
 
