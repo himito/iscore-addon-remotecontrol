@@ -25,7 +25,7 @@ class iscore_addon_remotecontrol final :
                 iscore::FactoryInterface_QtInterface
                 iscore::GUIApplicationContextPlugin_QtInterface
                 )
-
+        ISCORE_PLUGIN_METADATA(1, "ecffb9d5-3d67-4b89-a64f-341b68cd9603")
     public:
         iscore_addon_remotecontrol();
         virtual ~iscore_addon_remotecontrol();
@@ -42,7 +42,5 @@ class iscore_addon_remotecontrol final :
                 const iscore::ApplicationContext& ctx,
                 const iscore::InterfaceKey& factoryName) const override;
 
-        iscore::Version version() const override;
-        QStringList required() const override;
-        UuidKey<iscore::Plugin> key() const override;
+        std::vector<iscore::PluginKey> required() const override;
 };

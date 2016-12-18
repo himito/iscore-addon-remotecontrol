@@ -5,6 +5,10 @@
 
 #include <RemoteControl/Scenario/Scenario.hpp>
 #include <RemoteControl/Scenario/Loop.hpp>
+
+#include <Scenario/iscore_plugin_scenario.hpp>
+#include <iscore_plugin_deviceexplorer.hpp>
+
 iscore_addon_remotecontrol::iscore_addon_remotecontrol() :
     QObject {}
 {
@@ -42,18 +46,11 @@ std::vector<std::unique_ptr<iscore::InterfaceBase>> iscore_addon_remotecontrol::
             >(ctx, key);
 }
 
-iscore::Version iscore_addon_remotecontrol::version() const
+auto iscore_addon_remotecontrol::required() const
+  -> std::vector<iscore::PluginKey>
 {
-    return iscore::Version{1};
+    return {
+      iscore_plugin_scenario::static_key(),
+      iscore_plugin_deviceexplorer::static_key()
+    };
 }
-
-QStringList iscore_addon_remotecontrol::required() const
-{
-    return {"Scenario", "DeviceExplorer"};
-}
-
-UuidKey<iscore::Plugin> iscore_addon_remotecontrol::key() const
-{
-    return_uuid("ecffb9d5-3d67-4b89-a64f-341b68cd9603");
-}
-

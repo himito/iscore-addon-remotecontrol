@@ -302,8 +302,8 @@ void Receiver::on_valueUpdated(const ::State::Address& addr, const ossia::value&
   auto it = m_listenedAddresses.find(addr);
   if(it != m_listenedAddresses.end())
   {
-
     ::State::Message m{::State::AddressAccessor{addr}, ::State::fromOSSIAValue(v)};
+
     Serializer<JSONObject> s;
     s.readFrom(m);
     s.m_obj[iscore::StringConstant().Message] = iscore::StringConstant().Message;
