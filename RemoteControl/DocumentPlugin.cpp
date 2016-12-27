@@ -304,11 +304,11 @@ void Receiver::on_valueUpdated(const ::State::Address& addr, const ossia::value&
   {
     ::State::Message m{::State::AddressAccessor{addr}, ::State::fromOSSIAValue(v)};
 
-    Serializer<JSONObject> s;
+    JSONObject::Serializer s;
     s.readFrom(m);
-    s.m_obj[iscore::StringConstant().Message] = iscore::StringConstant().Message;
+    s.obj[iscore::StringConstant().Message] = iscore::StringConstant().Message;
     QWebSocket* w = it->second.socket;
-    w->sendTextMessage(QJsonDocument(s.m_obj).toJson());
+    w->sendTextMessage(QJsonDocument(s.obj).toJson());
   }
 
 }
