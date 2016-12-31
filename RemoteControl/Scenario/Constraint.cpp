@@ -19,10 +19,11 @@ ProcessComponent*ConstraintBase::make(
 }
 
 
-void ConstraintBase::removing(
+bool ConstraintBase::removing(
         const Process::ProcessModel& cst,
         const ProcessComponent& comp)
 {
+  return true;
 }
 
 
