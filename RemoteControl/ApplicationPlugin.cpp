@@ -9,7 +9,7 @@ namespace RemoteControl
 {
 ApplicationPlugin::ApplicationPlugin(
         const iscore::GUIApplicationContext& app):
-    GUIApplicationContextPlugin {app}
+    GUIApplicationPlugin {app}
 {
 
 }

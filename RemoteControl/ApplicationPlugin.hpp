@@ -1,10 +1,10 @@
 #pragma once
-#include <iscore/plugins/application/GUIApplicationContextPlugin.hpp>
+#include <iscore/plugins/application/GUIApplicationPlugin.hpp>
 
 namespace RemoteControl
 {
 class ApplicationPlugin final :
-        public iscore::GUIApplicationContextPlugin
+        public iscore::GUIApplicationPlugin
 {
     public:
         ApplicationPlugin(const iscore::GUIApplicationContext& app);

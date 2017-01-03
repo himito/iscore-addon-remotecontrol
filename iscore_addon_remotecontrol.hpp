@@ -2,7 +2,7 @@
 #include <iscore/plugins/qt_interfaces/PluginRequirements_QtInterface.hpp>
 #include <iscore/plugins/qt_interfaces/FactoryInterface_QtInterface.hpp>
 #include <iscore/plugins/qt_interfaces/FactoryFamily_QtInterface.hpp>
-#include <iscore/plugins/qt_interfaces/GUIApplicationContextPlugin_QtInterface.hpp>
+#include <iscore/plugins/qt_interfaces/GUIApplicationPlugin_QtInterface.hpp>
 #include <iscore/application/ApplicationContext.hpp>
 #include <iscore/plugins/customfactory/FactoryInterface.hpp>
 
@@ -15,7 +15,7 @@ class iscore_addon_remotecontrol final :
         public iscore::Plugin_QtInterface,
         public iscore::FactoryList_QtInterface,
         public iscore::FactoryInterface_QtInterface,
-        public iscore::GUIApplicationContextPlugin_QtInterface
+        public iscore::GUIApplicationPlugin_QtInterface
 {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID FactoryInterface_QtInterface_iid)
@@ -23,7 +23,7 @@ class iscore_addon_remotecontrol final :
                 iscore::Plugin_QtInterface
                 iscore::FactoryList_QtInterface
                 iscore::FactoryInterface_QtInterface
-                iscore::GUIApplicationContextPlugin_QtInterface
+                iscore::GUIApplicationPlugin_QtInterface
                 )
         ISCORE_PLUGIN_METADATA(1, "ecffb9d5-3d67-4b89-a64f-341b68cd9603")
     public:
@@ -31,7 +31,7 @@ class iscore_addon_remotecontrol final :
         virtual ~iscore_addon_remotecontrol();
 
     private:
-        iscore::GUIApplicationContextPlugin* make_applicationPlugin(
+        iscore::GUIApplicationPlugin* make_applicationPlugin(
                 const iscore::GUIApplicationContext& app) override;
 
 
