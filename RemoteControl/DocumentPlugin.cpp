@@ -27,9 +27,6 @@ DocumentPlugin::DocumentPlugin(
   iscore::DocumentPlugin{doc, std::move(id), "RemoteControl::DocumentPlugin", parent},
   receiver{doc, 10212}
 {
-  con(doc.document, &iscore::Document::aboutToClose,
-      this, [this] { cleanup(); });
-
   auto& set = m_context.app.settings<Settings::Model>();
   if(set.getEnabled())
   {
@@ -47,6 +44,11 @@ DocumentPlugin::DocumentPlugin(
 
 DocumentPlugin::~DocumentPlugin()
 {
+}
+
+void DocumentPlugin::on_documentClosing()
+{
+  cleanup();
 }
 
 void DocumentPlugin::create()

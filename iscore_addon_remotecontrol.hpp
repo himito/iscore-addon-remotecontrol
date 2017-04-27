@@ -31,7 +31,7 @@ class iscore_addon_remotecontrol final :
         virtual ~iscore_addon_remotecontrol();
 
     private:
-        iscore::GUIApplicationPlugin* make_applicationPlugin(
+        iscore::GUIApplicationPlugin* make_guiApplicationPlugin(
                 const iscore::GUIApplicationContext& app) override;
 
 

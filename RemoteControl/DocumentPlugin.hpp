@@ -76,6 +76,7 @@ class DocumentPlugin : public iscore::DocumentPlugin
 
         ~DocumentPlugin();
 
+        void on_documentClosing() override;
         Receiver receiver;
 
     private:
