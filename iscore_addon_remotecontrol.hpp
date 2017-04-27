@@ -15,7 +15,7 @@ class iscore_addon_remotecontrol final :
         public iscore::Plugin_QtInterface,
         public iscore::FactoryList_QtInterface,
         public iscore::FactoryInterface_QtInterface,
-        public iscore::GUIApplicationPlugin_QtInterface
+        public iscore::ApplicationPlugin_QtInterface
 {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID FactoryInterface_QtInterface_iid)
@@ -23,7 +23,7 @@ class iscore_addon_remotecontrol final :
                 iscore::Plugin_QtInterface
                 iscore::FactoryList_QtInterface
                 iscore::FactoryInterface_QtInterface
-                iscore::GUIApplicationPlugin_QtInterface
+                iscore::ApplicationPlugin_QtInterface
                 )
         ISCORE_PLUGIN_METADATA(1, "ecffb9d5-3d67-4b89-a64f-341b68cd9603")
     public:
