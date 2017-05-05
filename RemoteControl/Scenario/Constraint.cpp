@@ -1,45 +1,29 @@
 #include "Constraint.hpp"
 namespace RemoteControl
 {
-
-const iscore::Component::Key&Constraint::key() const
-{
-    static const Key k{"b079041c-f11f-49b1-a88f-b2bc070affb1"};
-    return k;
-}
-
-
-Constraint::Constraint(
+ConstraintBase::ConstraintBase(
         const Id<iscore::Component>& id,
         Scenario::ConstraintModel& constraint,
-        Constraint::system_t& doc,
-        const iscore::DocumentContext& ctx,
+        DocumentPlugin& doc,
         QObject* parent_comp):
-    Component{id, "ConstraintComponent", parent_comp},
-    m_baseComponent{*this, constraint, doc, ctx, this}
+    parent_t{constraint, doc, id, "ConstraintComponent", parent_comp}
 {
 }
 
-Constraint::~Constraint()
-{
-}
-
-ProcessComponent*Constraint::make_processComponent(
+ProcessComponent*ConstraintBase::make(
         const Id<iscore::Component>& id,
         ProcessComponentFactory& factory,
-        Process::ProcessModel& process,
-        DocumentPlugin& system,
-        const iscore::DocumentContext& ctx,
-        QObject* parent_component)
+        Process::ProcessModel& process)
 {
-    return factory.make(id, process, system, ctx, parent_component);
+    return factory.make(process, system(), id, this);
 }
 
 
-void Constraint::removing(
+bool ConstraintBase::removing(
         const Process::ProcessModel& cst,
         const ProcessComponent& comp)
 {
+  return true;
 }
 
 

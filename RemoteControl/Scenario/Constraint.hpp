@@ -2,58 +2,45 @@
 #include <RemoteControl/Scenario/Process.hpp>
 #include <RemoteControl/DocumentPlugin.hpp>
 #include <Scenario/Document/Components/ConstraintComponent.hpp>
+#include <iscore/model/ComponentHierarchy.hpp>
 
 namespace RemoteControl
 {
-namespace Mix
+class ConstraintBase :
+        public Scenario::GenericConstraintComponent<RemoteControl::DocumentPlugin>
 {
-class ProcessModel;
-}
-class Constraint final :
-        public iscore::Component
-{
+        COMMON_COMPONENT_METADATA("b079041c-f11f-49b1-a88f-b2bc070affb1")
     public:
-        using system_t = RemoteControl::DocumentPlugin;
-        using process_component_t = RemoteControl::ProcessComponent;
-        using process_component_factory_t = RemoteControl::ProcessComponentFactory;
-        using process_component_factory_list_t = RemoteControl::ProcessComponentFactoryList;
+        using parent_t = Scenario::GenericConstraintComponent<RemoteControl::DocumentPlugin>;
+        using DocumentPlugin = RemoteControl::DocumentPlugin;
+        using model_t = Process::ProcessModel;
+        using component_t = RemoteControl::ProcessComponent;
+        using component_factory_list_t = RemoteControl::ProcessComponentFactoryList;
 
-        using parent_t = ::ConstraintComponentHierarchyManager<
-            Constraint,
-            system_t,
-            process_component_t,
-            process_component_factory_list_t
-        >;
-
-        const Key& key() const override;
-
-        Constraint(
-                const Id<Component>& id,
+        ConstraintBase(
+                const Id<iscore::Component>& id,
                 Scenario::ConstraintModel& constraint,
-                system_t& doc,
-                const iscore::DocumentContext& ctx,
+                DocumentPlugin& doc,
                 QObject* parent_comp);
-        ~Constraint();
 
-        ProcessComponent* make_processComponent(
-                const Id<Component> & id,
+        ProcessComponent* make(
+                const Id<iscore::Component> & id,
                 ProcessComponentFactory& factory,
-                Process::ProcessModel &process,
-                DocumentPlugin &system,
-                const iscore::DocumentContext &ctx,
-                QObject *parent_component);
+                Process::ProcessModel &process);
 
-        void removing(const Process::ProcessModel& cst, const ProcessComponent& comp);
+        bool removing(const Process::ProcessModel& cst, const ProcessComponent& comp);
 
-        const auto& processes() const
-        { return m_baseComponent.processes(); }
-
-    private:
-        Mix::ProcessModel* findMix() const;
-
-        parent_t m_baseComponent;
+        template <typename... Args>
+        void removed(Args&&...)
+        {
+        }
 };
 
+class Constraint final :
+        public iscore::PolymorphicComponentHierarchy<ConstraintBase>
+{
+    public:
+        using iscore::PolymorphicComponentHierarchy<ConstraintBase>::PolymorphicComponentHierarchyManager;
 
-
+};
 }

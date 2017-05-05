@@ -7,20 +7,13 @@ namespace RemoteControl
 class Event final :
         public iscore::Component
 {
-
+        COMMON_COMPONENT_METADATA("c12629a1-e77b-42e8-a2dc-9b6532a011c1")
     public:
-        using system_t = RemoteControl::DocumentPlugin;
-
         Event(
-                const Id<Component>& id,
+                const Id<iscore::Component>& id,
                 Scenario::EventModel& event,
-                system_t& doc,
-                const iscore::DocumentContext& ctx,
+                DocumentPlugin& doc,
                 QObject* parent_comp);
-
-        const Key& key() const override;
-
-        ~Event();
 
     private:
         Path<Scenario::TimeNodeModel> m_parent;

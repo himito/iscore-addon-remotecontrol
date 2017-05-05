@@ -76,7 +76,7 @@ struct WebSocketHandler : public QObject
                 if(it == m_activeTimeNodes.timeNodes.end())
                 {
                     m_activeTimeNodes.apply([=] () {
-                        m_activeTimeNodes.timeNodes.emplace_back(TimeNodeInfo{*json_it, obj["Name"].toString()});
+                        m_activeTimeNodes.timeNodes.emplace_back(TimeNodeInfo{*json_it, obj[iscore::StringConstant().Name].toString()});
                     });
                 }
             }));
@@ -152,8 +152,8 @@ struct WebSocketHandler : public QObject
             auto tn = m_activeTimeNodes.timeNodes[i];
 
             QJsonObject mess;
-            mess["Message"] = "Trigger";
-            mess["Path"] = tn.path;
+            mess[iscore::StringConstant().Message] = "Trigger";
+            mess[iscore::StringConstant().Path] = tn.path;
             QJsonDocument doc{mess};
             auto json = doc.toJson();
 
@@ -163,21 +163,21 @@ struct WebSocketHandler : public QObject
         void on_play()
         {
             QJsonObject mess;
-            mess["Message"] = "Play";
+            mess[iscore::StringConstant().Message] = "Play";
             m_server.sendTextMessage(QJsonDocument{mess}.toJson());
         }
 
         void on_pause()
         {
             QJsonObject mess;
-            mess["Message"] = "Pause";
+            mess[iscore::StringConstant().Message] = "Pause";
             m_server.sendTextMessage(QJsonDocument{mess}.toJson());
         }
 
         void on_stop()
         {
             QJsonObject mess;
-            mess["Message"] = "Stop";
+            mess[iscore::StringConstant().Message] = "Stop";
             m_server.sendTextMessage(QJsonDocument{mess}.toJson());
         }
 

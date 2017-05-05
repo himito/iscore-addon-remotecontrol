@@ -2,7 +2,7 @@
 #include <iscore/plugins/qt_interfaces/PluginRequirements_QtInterface.hpp>
 #include <iscore/plugins/qt_interfaces/FactoryInterface_QtInterface.hpp>
 #include <iscore/plugins/qt_interfaces/FactoryFamily_QtInterface.hpp>
-#include <iscore/plugins/qt_interfaces/GUIApplicationContextPlugin_QtInterface.hpp>
+#include <iscore/plugins/qt_interfaces/GUIApplicationPlugin_QtInterface.hpp>
 #include <iscore/application/ApplicationContext.hpp>
 #include <iscore/plugins/customfactory/FactoryInterface.hpp>
 
@@ -15,7 +15,7 @@ class iscore_addon_remotecontrol final :
         public iscore::Plugin_QtInterface,
         public iscore::FactoryList_QtInterface,
         public iscore::FactoryInterface_QtInterface,
-        public iscore::GUIApplicationContextPlugin_QtInterface
+        public iscore::ApplicationPlugin_QtInterface
 {
         Q_OBJECT
         Q_PLUGIN_METADATA(IID FactoryInterface_QtInterface_iid)
@@ -23,26 +23,24 @@ class iscore_addon_remotecontrol final :
                 iscore::Plugin_QtInterface
                 iscore::FactoryList_QtInterface
                 iscore::FactoryInterface_QtInterface
-                iscore::GUIApplicationContextPlugin_QtInterface
+                iscore::ApplicationPlugin_QtInterface
                 )
-
+        ISCORE_PLUGIN_METADATA(1, "ecffb9d5-3d67-4b89-a64f-341b68cd9603")
     public:
         iscore_addon_remotecontrol();
         virtual ~iscore_addon_remotecontrol();
 
     private:
-        iscore::GUIApplicationContextPlugin* make_applicationPlugin(
+        iscore::GUIApplicationPlugin* make_guiApplicationPlugin(
                 const iscore::GUIApplicationContext& app) override;
 
 
-        std::vector<std::unique_ptr<iscore::FactoryListInterface>> factoryFamilies() override;
+        std::vector<std::unique_ptr<iscore::InterfaceListBase>> factoryFamilies() override;
 
 
-        std::vector<std::unique_ptr<iscore::FactoryInterfaceBase>> factories(
+        std::vector<std::unique_ptr<iscore::InterfaceBase>> factories(
                 const iscore::ApplicationContext& ctx,
-                const iscore::AbstractFactoryKey& factoryName) const override;
+                const iscore::InterfaceKey& factoryName) const override;
 
-        iscore::Version version() const override;
-        QStringList required() const override;
-        UuidKey<iscore::Plugin> key() const override;
+        std::vector<iscore::PluginKey> required() const override;
 };

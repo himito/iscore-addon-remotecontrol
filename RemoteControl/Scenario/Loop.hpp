@@ -8,61 +8,40 @@
 #include <QMetaObject>
 namespace RemoteControl
 {
-class Loop final :
-        public ProcessComponent
+class LoopBase :
+        public ProcessComponent_T<Loop::ProcessModel>
 {
-       COMPONENT_METADATA(RemoteControl::ScenarioComponent)
-
-        using system_t = RemoteControl::DocumentPlugin;
-        using hierarchy_t =
-           BaseScenarioComponentHierarchyManager<
-               Loop,
-               system_t,
-               ::Loop::ProcessModel,
-               Constraint,
-               Event,
-               TimeNode,
-               State
-        >;
+        COMMON_COMPONENT_METADATA("67fb5b6b-12fb-40a2-8108-429b89251a1b")
 
     public:
-       Loop(
-               const Id<Component>& id,
+       LoopBase(
                ::Loop::ProcessModel& scenario,
-               system_t& doc,
-               const iscore::DocumentContext& ctx,
+               DocumentPlugin& doc,
+               const Id<iscore::Component>& id,
                QObject* parent_obj);
-
-       const auto& constraints() const
-       { return m_hm.constraints(); }
 
        template<typename Component_T, typename Element>
        Component_T* make(
-               const Id<Component>& id,
-               Element& elt,
-               system_t& doc,
-               const iscore::DocumentContext& ctx,
-               QObject* parent);
+               const Id<iscore::Component>& id,
+               Element& elt)
+       {
+           return new Component_T{id, elt, system(), this};
+       }
 
-        void removing(
-                const Scenario::ConstraintModel& elt,
-                const Constraint& comp);
-
-        void removing(
-                const Scenario::EventModel& elt,
-                const Event& comp);
-
-        void removing(
-                const Scenario::TimeNodeModel& elt,
-                const TimeNode& comp);
-
-        void removing(
-                const Scenario::StateModel& elt,
-                const State& comp);
-
-    private:
-        hierarchy_t m_hm;
-
+       template<typename... Args>
+       void removing(Args&&...) { }
 };
+
+using LoopComponent =
+   HierarchicalBaseScenario<
+       LoopBase,
+       ::Loop::ProcessModel,
+       Constraint,
+       Event,
+       TimeNode,
+       State
+>;
+
+using LoopComponentFactory = ProcessComponentFactory_T<LoopComponent>;
 
 }

@@ -15,13 +15,10 @@ set(SRCS
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Settings/View.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Settings/View.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Settings/Factory.hpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Settings/Factory.cpp"
 
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Process.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Scenario.hpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/ScenarioFactory.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Loop.hpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/LoopFactory.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Constraint.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Event.hpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/TimeNode.hpp"
@@ -29,9 +26,7 @@ set(SRCS
 
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Process.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Scenario.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/ScenarioFactory.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Loop.cpp"
-"${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/LoopFactory.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Constraint.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/Event.cpp"
 "${CMAKE_CURRENT_SOURCE_DIR}/RemoteControl/Scenario/TimeNode.cpp"
@@ -51,30 +46,31 @@ add_library(${PROJECT_NAME} ${SRCS} ${HDRS} ${QRCS})
 
 target_link_libraries(${PROJECT_NAME} PUBLIC iscore_plugin_scenario iscore_plugin_loop Qt5::WebSockets)
 
-### Setup of the target ###
-function(setup_iscore_addon AddonTarget)
-    set(options)
-    set(oneValueArgs NAME METADATA)
-    set(multiValueArgs)
-    cmake_parse_arguments(SETUP_ADDON "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
-
-    setup_iscore_common_lib_features("${AddonTarget}")
-
-    set(ADDON_FOLDER "${CMAKE_BINARY_DIR}/addons/${SETUP_ADDON_NAME}/")
-    set(ADDON_PLATFORM "${ISCORE_ADDON_PLATFORM}")
-    set(ADDON_FILENAME "${SETUP_ADDON_NAME}-${ISCORE_ADDON_SUFFIX}")
-
-    set_target_properties(${AddonTarget} PROPERTIES
-        LIBRARY_OUTPUT_DIRECTORY "${ADDON_FOLDER}/"
-        PREFIX ""
-        SUFFIX ""
-        OUTPUT_NAME "${ADDON_FILENAME}")
-    configure_file("${SETUP_ADDON_METADATA}" "${ADDON_FOLDER}/localaddon.json")
-
-    iscore_cotire_post("${AddonTarget}")
-endfunction()
-
 setup_iscore_plugin(${PROJECT_NAME})
+
+### Setup of the target ###
+#TODO
+#function(setup_iscore_addon AddonTarget)
+#    set(options)
+#    set(oneValueArgs NAME METADATA)
+#    set(multiValueArgs)
+#    cmake_parse_arguments(SETUP_ADDON "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+#    setup_iscore_common_lib_features("${AddonTarget}")
+
+#    set(ADDON_FOLDER "${CMAKE_BINARY_DIR}/addons/${SETUP_ADDON_NAME}/")
+#    set(ADDON_PLATFORM "${ISCORE_ADDON_PLATFORM}")
+#    set(ADDON_FILENAME "${SETUP_ADDON_NAME}-${ISCORE_ADDON_SUFFIX}")
+
+#    set_target_properties(${AddonTarget} PROPERTIES
+#        LIBRARY_OUTPUT_DIRECTORY "${ADDON_FOLDER}/"
+#        PREFIX ""
+#        SUFFIX ""
+#        OUTPUT_NAME "${ADDON_FILENAME}")
+#    configure_file("${SETUP_ADDON_METADATA}" "${ADDON_FOLDER}/localaddon.json")
+
+#    iscore_cotire_post("${AddonTarget}")
+#endfunction()
 
 #setup_iscore_addon(
 #    ${PROJECT_NAME}

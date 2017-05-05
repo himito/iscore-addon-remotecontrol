@@ -7,21 +7,13 @@ namespace RemoteControl
 class State final :
         public iscore::Component
 {
+        COMMON_COMPONENT_METADATA("128668ce-edee-454f-9e5a-3ba07a7d0fa4")
     public:
-        using system_t = RemoteControl::DocumentPlugin;
-
         State(
                 const Id<iscore::Component>& id,
                 Scenario::StateModel& state,
-                const system_t& doc,
-                const iscore::DocumentContext& ctx,
+                const DocumentPlugin& doc,
                 QObject* parent_comp);
-
-        const Key& key() const override;
-
-        ~State();
-
-    private:
 
 };
 }

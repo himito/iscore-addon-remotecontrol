@@ -6,8 +6,7 @@ namespace RemoteControl
 Event::Event(
         const Id<iscore::Component>& id,
         Scenario::EventModel& event,
-        Event::system_t& doc,
-        const iscore::DocumentContext& ctx,
+        DocumentPlugin& doc,
         QObject* parent_comp):
     Component{id, "EventComponent", parent_comp},
     m_parent{Scenario::parentTimeNode(event, *dynamic_cast<Scenario::ScenarioInterface*>(event.parent()))}
@@ -25,16 +24,4 @@ Event::Event(
         }
     });
 }
-
-const iscore::Component::Key&Event::key() const
-{
-    static const Key k{"b8cc40b8-2ab4-4b2d-bddb-8bbf926f5060"};
-    return k;
-}
-
-Event::~Event()
-{
-
-}
-
 }

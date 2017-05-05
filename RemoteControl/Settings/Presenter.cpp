@@ -1,7 +1,7 @@
 #include "Presenter.hpp"
 #include "Model.hpp"
 #include "View.hpp"
-#include <iscore/command/SerializableCommand.hpp>
+#include <iscore/command/Command.hpp>
 #include <iscore/command/Dispatchers/ICommandDispatcher.hpp>
 #include <QApplication>
 #include <QStyle>

@@ -5,65 +5,43 @@
 #include <RemoteControl/Scenario/State.hpp>
 #include <Scenario/Document/Components/ScenarioComponent.hpp>
 #include <QMetaObject>
+
 namespace RemoteControl
 {
-class ScenarioComponent final :
-        public ProcessComponent
+class ScenarioBase :
+        public ProcessComponent_T<Scenario::ProcessModel>
 {
-       COMPONENT_METADATA(RemoteControl::ScenarioComponent)
-
-        using system_t = RemoteControl::DocumentPlugin;
-        using hierarchy_t =
-           ScenarioComponentHierarchyManager<
-               ScenarioComponent,
-               system_t,
-               Scenario::ProcessModel,
-               Constraint,
-               Event,
-               TimeNode,
-               State
-        >;
+        COMPONENT_METADATA("fce752e0-e37a-4b71-bc2a-65366ec87152")
 
     public:
-       ScenarioComponent(
-               const Id<Component>& id,
+       ScenarioBase(
                Scenario::ProcessModel& scenario,
-               system_t& doc,
-               const iscore::DocumentContext& ctx,
+               DocumentPlugin& doc,
+                const Id<iscore::Component>& id,
                QObject* parent_obj);
-
-
-
-       const auto& constraints() const
-       { return m_hm.constraints(); }
 
        template<typename Component_T, typename Element>
        Component_T* make(
-               const Id<Component>& id,
-               Element& elt,
-               system_t& doc,
-               const iscore::DocumentContext& ctx,
-               QObject* parent);
+               const Id<iscore::Component>& id,
+               Element& elt)
+       {
+           return new Component_T{id, elt, system(), this};
+       }
 
-        void removing(
-                const Scenario::ConstraintModel& elt,
-                const Constraint& comp);
-
-        void removing(
-                const Scenario::EventModel& elt,
-                const Event& comp);
-
-        void removing(
-                const Scenario::TimeNodeModel& elt,
-                const TimeNode& comp);
-
-        void removing(
-                const Scenario::StateModel& elt,
-                const State& comp);
-
-    private:
-        hierarchy_t m_hm;
-
+       template<typename... Args>
+       bool removing(Args&&...) { return true; }
+       template<typename... Args>
+       void removed(Args&&...) { }
 };
 
+using ScenarioComponent = HierarchicalScenarioComponent<
+    ScenarioBase,
+    Scenario::ProcessModel,
+    Constraint,
+    Event,
+    TimeNode,
+    State>;
+
+
+using ScenarioComponentFactory = ProcessComponentFactory_T<ScenarioComponent>;
 }
